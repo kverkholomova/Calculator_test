@@ -14,7 +14,7 @@ class _CalculatorState extends State<Calculator> {
   int first = 0;
   String userInput='0';
   String number = '';
-  int sum =0;
+  double answer_double =0;
   int answer = 0;
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,20 @@ class _CalculatorState extends State<Calculator> {
                             ),
                             onPressed: (){
                               setState(() {
+
                                 userInput= userInput.substring(0,userInput.length-1);
+                                if(userInput==''){
+                                  answer = 0;
+                                }
+                                else{
+
+                                }
+                                print(userInput);
+                                print(answer);
+                                // else{
+                                //   userInput= userInput.substring(0,userInput.length-1);
+                                // }
+
                               });
 
                             }),
@@ -80,7 +93,45 @@ class _CalculatorState extends State<Calculator> {
                               style: TextStyle(fontSize: 45, color: Colors.white70),
                             ),
                             onPressed: (){
+                              setState(() {
+                                option = "/";
+                                if (userInput.contains("-")||userInput.contains("+")||userInput.contains("*")||userInput.contains("/")){
+                                  print("contains /");
+                                  if (second == 0){
+                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                    // answer = answer + sum;
+                                    print("second divide is $second");
+                                    userInput = userInput + '/';
+                                    index = userInput.length;
+                                  }
+                                  else{
+                                    first = first / second as int;
+                                    userInput = userInput + '/';
+                                    index = userInput.length;
+                                    print("first multiple is $first");
+                                    second = 0;
+                                  }
+                                }
+                                else{
+                                  first = int.parse(userInput);
+                                  // sum = int.parse(userInput);
+                                  // answer = answer + sum;
+                                  print("first multiple is $first");
+                                  userInput = userInput + '/';
+                                  index = userInput.length;
+                                }
+                                if(second ==0){
+                                  answer = 0;
+                                }
+                                else{
+                                  answer_double = first / second;
+                                }
 
+                                second= 0;
+                                print("second multiple is $second");
+                                print("answer multiple is $answer_double");
+                                print("index multiple is $index");
+                              });
                             }),
                       ),
                       Expanded(
@@ -90,7 +141,47 @@ class _CalculatorState extends State<Calculator> {
                               "*",
                               style: TextStyle(fontSize: 45, color: Colors.white70),
                             ),
-                            onPressed: (){}),
+                            onPressed: (){
+                              setState(() {
+                                option = "*";
+                                if (userInput.contains("-")||userInput.contains("+")||userInput.contains("*")||userInput.contains("/")){
+                                  print("contains *");
+                                  if (second == 0){
+                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                    // answer = answer + sum;
+                                    print("second multiple is $second");
+                                    userInput = userInput + '*';
+                                    index = userInput.length;
+                                  }
+                                  else{
+                                    first = first * second;
+                                    userInput = userInput + '*';
+                                    index = userInput.length;
+                                    print("first multiple is $first");
+                                    second = 0;
+                                  }
+                                }
+                                else{
+                                  first = int.parse(userInput);
+                                  // sum = int.parse(userInput);
+                                  // answer = answer + sum;
+                                  print("first multiple is $first");
+                                  userInput = userInput + '*';
+                                  index = userInput.length;
+                                }
+                                if(second ==0){
+                                  answer = answer;
+                                }
+                                else{
+                                  answer = first * second;
+                                }
+
+                                second= 0;
+                                print("second multiple is $second");
+                                print("answer multiple is $answer");
+                                print("index multiple is $index");
+                              });
+                            }),
                       ),
                       Expanded(
                         flex:1,
@@ -102,7 +193,8 @@ class _CalculatorState extends State<Calculator> {
                             onPressed: (){
                               setState(() {
                                 option = "+";
-                                if (userInput.contains("+")){
+                                if (userInput.contains("+")||userInput.contains("-")||userInput.contains("*")||userInput.contains("/")){
+                                  print("contains +");
                                   if (second == 0){
                                     // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                     // answer = answer + sum;
@@ -112,6 +204,8 @@ class _CalculatorState extends State<Calculator> {
                                   }
                                   else{
                                     first = first + second;
+                                    userInput = userInput + '+';
+                                    index = userInput.length;
                                     print("first is $first");
                                     second =0;
                                   }
@@ -127,7 +221,9 @@ class _CalculatorState extends State<Calculator> {
                               answer = first + second;
                                 second= 0;
                                 print("second is $second");
-                              print("answer is $answer");});
+                              print("answer is $answer");
+                              print("index is $index");
+                              });
                             }),
                       ),
                       Expanded(
@@ -138,21 +234,39 @@ class _CalculatorState extends State<Calculator> {
                               style: TextStyle(fontSize: 45, color: Colors.white70),
                             ),
                             onPressed: (){
-                              // setState(() {
-                              //   if (userInput.contains("+") || userInput.contains("-")){
-                              //     sum =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                              //     answer = answer - sum;
-                              //     print(answer);
-                              //     userInput = userInput + '-';
-                              //     index = userInput.length;
-                              //   }
-                              //   else{
-                              //     sum = int.parse(userInput);
-                              //     answer = answer - sum;
-                              //     print(answer);
-                              //     userInput = userInput + '-';
-                              //     index = userInput.length;
-                              //   }});
+                              setState(() {
+                              option = "-";
+                              if (userInput.contains("-")||userInput.contains("+")||userInput.contains("*")||userInput.contains("/")){
+                                print("contains -");
+                                if (second == 0){
+                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                  // answer = answer + sum;
+                                  print("second minus is $second");
+                                  userInput = userInput + '-';
+                                  index = userInput.length;
+                                }
+                                else{
+                                  first = first - second;
+                                  userInput = userInput + '-';
+                                  index = userInput.length;
+                                  print("first minus is $first");
+                                  second =0;
+                                }
+                              }
+                              else{
+                                first = int.parse(userInput);
+                                // sum = int.parse(userInput);
+                                // answer = answer + sum;
+                                print("first minus is $first");
+                                userInput = userInput + '-';
+                                index = userInput.length;
+                              }
+                              answer = first - second;
+                              second= 0;
+                              print("second minus is $second");
+                              print("answer minus is $answer");
+                              print("index minus is $index");
+                                });
                             }),
                       ),
                     ],
@@ -200,9 +314,15 @@ class _CalculatorState extends State<Calculator> {
                                           if (userInput=='0'){
                                             userInput = '7';
                                           }
+                                          else if(!userInput.contains("+") &&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
+                                            userInput= userInput + '7';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
+                                          }
                                           else{
                                             userInput= userInput + '7';
-
+                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
                                           }
                                         });
 
@@ -220,6 +340,11 @@ class _CalculatorState extends State<Calculator> {
                                         setState((){
                                           if (userInput=='0'){
                                             userInput = '8';
+                                          }
+                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
+                                            userInput= userInput + '8';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
                                           }
                                           else{
                                             userInput= userInput + '8';
@@ -241,8 +366,15 @@ class _CalculatorState extends State<Calculator> {
                                           if (userInput=='0'){
                                             userInput = '9';
                                           }
+                                          else if (!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
+                                            userInput= userInput + '9';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
+                                          }
                                           else{
                                             userInput= userInput + '9';
+                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
                                           }
                                         });
                                       }),
@@ -266,8 +398,15 @@ class _CalculatorState extends State<Calculator> {
                                           if (userInput=='0'){
                                             userInput = '4';
                                           }
+                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
+                                            userInput= userInput + '4';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
+                                          }
                                           else{
                                             userInput= userInput + '4';
+                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
                                           }
                                         });
                                       }),
@@ -284,8 +423,18 @@ class _CalculatorState extends State<Calculator> {
                                           if (userInput=='0'){
                                             userInput = '5';
                                           }
+                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
+                                            userInput= userInput + '5';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("Contains + or -. Second is $second");
+                                          }
                                           else{
                                             userInput= userInput + '5';
+                                            print(userInput.length);
+                                            print(userInput.length-(userInput.length-index));
+                                            print(userInput.substring(userInput.length-(userInput.length-index)));
+                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
                                           }
                                         });
                                       }),
@@ -302,8 +451,15 @@ class _CalculatorState extends State<Calculator> {
                                           if (userInput=='0'){
                                             userInput = '6';
                                           }
+                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
+                                            userInput= userInput + '6';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
+                                          }
                                           else{
                                             userInput= userInput + '6';
+                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
                                           }
                                         });
                                       }),
@@ -328,8 +484,15 @@ class _CalculatorState extends State<Calculator> {
                                           if (userInput=='0'){
                                             userInput = '1';
                                           }
+                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
+                                            userInput= userInput + '1';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
+                                          }
                                           else{
                                             userInput= userInput + '1';
+                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
                                           }
                                         });
                                       }),
@@ -346,8 +509,15 @@ class _CalculatorState extends State<Calculator> {
                                           if (userInput=='0'){
                                             userInput = '2';
                                           }
+                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
+                                            userInput= userInput + '2';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
+                                          }
                                           else{
                                             userInput= userInput + '2';
+                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
                                           }
                                         });
                                       }),
@@ -364,8 +534,15 @@ class _CalculatorState extends State<Calculator> {
                                           if (userInput=='0'){
                                             userInput = '3';
                                           }
+                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
+                                            userInput= userInput + '3';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
+                                          }
                                           else{
                                             userInput= userInput + '3';
+                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
                                           }
                                         });
                                       }),
@@ -389,9 +566,17 @@ class _CalculatorState extends State<Calculator> {
                                           if (userInput=='0'){
                                             userInput = '0.';
                                           }
+                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
+                                            userInput= userInput + '.';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
+                                          }
                                           else{
                                             userInput= userInput + '.';
+                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
                                           }
+
                                         });
                                       }),
                                 ),
@@ -407,8 +592,15 @@ class _CalculatorState extends State<Calculator> {
                                           if (userInput=='0'){
                                             userInput = '0';
                                           }
+                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
+                                            userInput= userInput + '0';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
+                                          }
                                           else{
                                             userInput= userInput + '0';
+                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
                                           }
                                         });
                                       }),
@@ -422,10 +614,26 @@ class _CalculatorState extends State<Calculator> {
                                       ),
                                       onPressed: (){
                                         setState(() {
-                                          if (option =="+"){
+                                          if (option == "+"){
                                             answer = first + second;
-                                            second=0;
-                                            first=answer;
+                                            second = 0;
+                                            first = answer;
+                                          }
+                                          else if (option == "-"){
+                                            answer = first - second;
+                                            second = 0;
+                                            first = answer;
+                                          }
+                                          else if (option == "*"){
+                                            answer = first * second;
+                                            second = 0;
+                                            first = answer;
+                                          }
+                                          else if (option == "/"){
+                                            answer_double = first / second;
+                                            answer = answer_double.toInt();
+                                            second = 0;
+                                            first = answer;
                                           }
                                           // answer = first + second;
                                           // print("answer is $answer");
