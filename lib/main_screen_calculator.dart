@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:calculator_test/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +19,7 @@ class _CalculatorState extends State<Calculator> {
   String number = '';
   double answer_double = 0;
   double answer = 0;
+  String third ="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,224 +63,230 @@ class _CalculatorState extends State<Calculator> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 310, left: 8, bottom: 30),
-                child: Container(
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: TextButton(
-                            child: Text(
-                              "C",
-                              style: TextStyle(
-                                  fontSize: 45, color: Colors.white70),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                userInput = userInput.substring(
-                                    0, userInput.length - 1);
-                                if (userInput == '') {
-                                  answer = 0;
-                                } else {}
-                                print(userInput);
-                                print(answer);
-                                // else{
-                                //   userInput= userInput.substring(0,userInput.length-1);
-                                // }
-                              });
-                            }),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: TextButton(
-                            child: Text(
-                              "/",
-                              style: TextStyle(
-                                  fontSize: 45, color: Colors.white70),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                option = "/";
-                                if (userInput.contains("-") ||
-                                    userInput.contains("+") ||
-                                    userInput.contains("*") ||
-                                    userInput.contains("/")) {
-                                  print("contains /");
-                                  if (second == 0) {
-                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                    // answer = answer + sum;
-                                    print("second divide is $second");
-                                    userInput = userInput + '/';
-                                    index = userInput.length;
-                                  } else {
-                                    first = first / second;
-                                    userInput = userInput + '/';
-                                    index = userInput.length;
-                                    print("first multiple is $first");
-                                    second = 0;
-                                  }
-                                } else {
-                                  first = double.parse(userInput);
-                                  // sum = int.parse(userInput);
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: TextButton(
+                          child: Text(
+                            "C",
+                            style: TextStyle(
+                                fontSize: 45, color: Colors.white70),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              userInput = userInput.substring(
+                                  0, userInput.length - 1);
+                              if (userInput == '') {
+                                answer = 0;
+                              } else {}
+                              print(userInput);
+                              print(answer);
+                              // else{
+                              //   userInput= userInput.substring(0,userInput.length-1);
+                              // }
+                            });
+                          }),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: TextButton(
+                          child: Text(
+                            "/",
+                            style: TextStyle(
+                                fontSize: 45, color: Colors.white70),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              option = "/";
+                              if (userInput.contains("-") ||
+                                  userInput.contains("+") ||
+                                  userInput.contains("*") ||
+                                  userInput.contains("/") ||
+                                  userInput.contains("%") ||
+                                  userInput.contains("sqrt(")) {
+                                print("contains /");
+                                if (second == 0) {
+                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                   // answer = answer + sum;
-                                  print("first multiple is $first");
+                                  print("second divide is $second");
                                   userInput = userInput + '/';
                                   index = userInput.length;
-                                }
-                                if (second == 0) {
-                                  answer = 0;
                                 } else {
-                                  answer_double = first / second;
-                                }
-
-                                second = 0;
-                                print("second multiple is $second");
-                                print("answer multiple is $answer_double");
-                                print("index multiple is $index");
-                              });
-                            }),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: TextButton(
-                            child: Text(
-                              "*",
-                              style: TextStyle(
-                                  fontSize: 45, color: Colors.white70),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                option = "*";
-                                if (userInput.contains("-") ||
-                                    userInput.contains("+") ||
-                                    userInput.contains("*") ||
-                                    userInput.contains("/")) {
-                                  print("contains *");
-                                  if (second == 0) {
-                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                    // answer = answer + sum;
-                                    print("second multiple is $second");
-                                    userInput = userInput + '*';
-                                    index = userInput.length;
-                                  } else {
-                                    first = first * second;
-                                    userInput = userInput + '*';
-                                    index = userInput.length;
-                                    print("first multiple is $first");
-                                    second = 0;
-                                  }
-                                } else {
-                                  first = double.parse(userInput);
-                                  // sum = int.parse(userInput);
-                                  // answer = answer + sum;
+                                  first = first / second;
+                                  userInput = userInput + '/';
+                                  index = userInput.length;
                                   print("first multiple is $first");
+                                  second = 0;
+                                }
+                              } else {
+                                first = double.parse(userInput);
+                                // sum = int.parse(userInput);
+                                // answer = answer + sum;
+                                print("first multiple is $first");
+                                userInput = userInput + '/';
+                                index = userInput.length;
+                              }
+                              if (second == 0) {
+                                answer = 0;
+                              } else {
+                                answer_double = first / second;
+                              }
+
+                              second = 0;
+                              print("second multiple is $second");
+                              print("answer multiple is $answer_double");
+                              print("index multiple is $index");
+                            });
+                          }),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: TextButton(
+                          child: Text(
+                            "*",
+                            style: TextStyle(
+                                fontSize: 45, color: Colors.white70),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              option = "*";
+                              if (userInput.contains("-") ||
+                                  userInput.contains("+") ||
+                                  userInput.contains("*") ||
+                                  userInput.contains("/") ||
+                                  userInput.contains("%") ||
+                                  userInput.contains("sqrt(")) {
+                                print("contains *");
+                                if (second == 0) {
+                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                  // answer = answer + sum;
+                                  print("second multiple is $second");
                                   userInput = userInput + '*';
                                   index = userInput.length;
-                                }
-                                if (second == 0) {
-                                  answer = answer;
                                 } else {
-                                  answer = first * second.toDouble();
+                                  first = first * second;
+                                  userInput = userInput + '*';
+                                  index = userInput.length;
+                                  print("first multiple is $first");
+                                  second = 0;
                                 }
+                              } else {
+                                first = double.parse(userInput);
+                                // sum = int.parse(userInput);
+                                // answer = answer + sum;
+                                print("first multiple is $first");
+                                userInput = userInput + '*';
+                                index = userInput.length;
+                              }
+                              if (second == 0) {
+                                answer = answer;
+                              } else {
+                                answer = first * second.toDouble();
+                              }
 
-                                second = 0;
-                                print("second multiple is $second");
-                                print("answer multiple is $answer");
-                                print("index multiple is $index");
-                              });
-                            }),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: TextButton(
-                            child: Text(
-                              "+",
-                              style: TextStyle(
-                                  fontSize: 45, color: Colors.white70),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                option = "+";
-                                if (userInput.contains("+") ||
-                                    userInput.contains("-") ||
-                                    userInput.contains("*") ||
-                                    userInput.contains("/")) {
-                                  print("contains +");
-                                  if (second == 0) {
-                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                    // answer = answer + sum;
-                                    print("second is $second");
-                                    userInput = userInput + '+';
-                                    index = userInput.length;
-                                  } else {
-                                    first = first + second;
-                                    userInput = userInput + '+';
-                                    index = userInput.length;
-                                    print("first is $first");
-                                    second = 0;
-                                  }
-                                } else {
-                                  first = double.parse(userInput);
-                                  // sum = int.parse(userInput);
+                              second = 0;
+                              print("second multiple is $second");
+                              print("answer multiple is $answer");
+                              print("index multiple is $index");
+                            });
+                          }),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: TextButton(
+                          child: Text(
+                            "+",
+                            style: TextStyle(
+                                fontSize: 45, color: Colors.white70),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              option = "+";
+                              if (userInput.contains("+") ||
+                                  userInput.contains("-") ||
+                                  userInput.contains("*") ||
+                                  userInput.contains("/") ||
+                                  userInput.contains("%") ||
+                                  userInput.contains("sqrt(")) {
+                                print("contains +");
+                                if (second == 0) {
+                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                   // answer = answer + sum;
-                                  print("first is $first");
+                                  print("second is $second");
                                   userInput = userInput + '+';
                                   index = userInput.length;
-                                }
-                                answer = first + second.toDouble();
-                                second = 0;
-                                print("second is $second");
-                                print("answer is $answer");
-                                print("index is $index");
-                              });
-                            }),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: TextButton(
-                            child: Text(
-                              "-",
-                              style: TextStyle(
-                                  fontSize: 45, color: Colors.white70),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                option = "-";
-                                if (userInput.contains("-") ||
-                                    userInput.contains("+") ||
-                                    userInput.contains("*") ||
-                                    userInput.contains("/")) {
-                                  print("contains -");
-                                  if (second == 0) {
-                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                    // answer = answer + sum;
-                                    print("second minus is $second");
-                                    userInput = userInput + '-';
-                                    index = userInput.length;
-                                  } else {
-                                    first = first - second;
-                                    userInput = userInput + '-';
-                                    index = userInput.length;
-                                    print("first minus is $first");
-                                    second = 0;
-                                  }
                                 } else {
-                                  first = double.parse(userInput);
-                                  // sum = int.parse(userInput);
+                                  first = first + second;
+                                  userInput = userInput + '+';
+                                  index = userInput.length;
+                                  print("first is $first");
+                                  second = 0;
+                                }
+                              } else {
+                                first = double.parse(userInput);
+                                // sum = int.parse(userInput);
+                                // answer = answer + sum;
+                                print("first is $first");
+                                userInput = userInput + '+';
+                                index = userInput.length;
+                              }
+                              answer = first + second.toDouble();
+                              second = 0;
+                              print("second is $second");
+                              print("answer is $answer");
+                              print("index is $index");
+                            });
+                          }),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: TextButton(
+                          child: Text(
+                            "-",
+                            style: TextStyle(
+                                fontSize: 45, color: Colors.white70),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              option = "-";
+                              if (userInput.contains("-") ||
+                                  userInput.contains("+") ||
+                                  userInput.contains("*") ||
+                                  userInput.contains("/") ||
+                                  userInput.contains("%") ||
+                                  userInput.contains("sqrt(")) {
+                                print("contains -");
+                                if (second == 0) {
+                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                   // answer = answer + sum;
-                                  print("first minus is $first");
+                                  print("second minus is $second");
                                   userInput = userInput + '-';
                                   index = userInput.length;
+                                } else {
+                                  first = first - second;
+                                  userInput = userInput + '-';
+                                  index = userInput.length;
+                                  print("first minus is $first");
+                                  second = 0;
                                 }
-                                answer = first - second.toDouble();
-                                second = 0;
-                                print("second minus is $second");
-                                print("answer minus is $answer");
-                                print("index minus is $index");
-                              });
-                            }),
-                      ),
-                    ],
-                  ),
+                              } else {
+                                first = double.parse(userInput);
+                                // sum = int.parse(userInput);
+                                // answer = answer + sum;
+                                print("first minus is $first");
+                                userInput = userInput + '-';
+                                index = userInput.length;
+                              }
+                              answer = first - second.toDouble();
+                              second = 0;
+                              print("second minus is $second");
+                              print("answer minus is $answer");
+                              print("index minus is $index");
+                            });
+                          }),
+                    ),
+                  ],
                 ),
               ),
               Padding(
@@ -429,6 +438,28 @@ class _CalculatorState extends State<Calculator> {
                                             second = 0;
                                             first = answer;
                                           }
+                                          else if (option == "%") {
+                                            answer_double = first * second/100;
+
+                                            answer = answer_double;
+                                            second = 0;
+                                            first = answer;
+                                          }
+                                          else if (option == "sqrt(") {
+                                            userInput = userInput+")";
+                                            print(userInput.length);
+                                            print(index);
+                                            print(userInput.length-index>2);
+                                            if (userInput.length-index>2){
+                                              answer_double = sqrt(second);
+                                            }
+                                            else {
+                                              answer_double = sqrt(first);
+                                            }
+                                            answer = answer_double;
+                                            second = 0;
+                                            first = answer;
+                                          }
                                           // answer = first + second;
                                           // print("answer is $answer");
                                         });
@@ -485,10 +516,109 @@ class _CalculatorState extends State<Calculator> {
                                         child: buildModalBottomTextButton("RAD")),
                                     Expanded(
                                         flex: 1,
-                                        child: buildModalBottomTextButton("%")),
+                                        child: TextButton(
+                                            child: Text(
+                                              "%",
+                                              style: TextStyle(
+                                                  fontSize: 20, color: Colors.white),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                option = "%";
+                                                if (userInput.contains("-") ||
+                                                    userInput.contains("+") ||
+                                                    userInput.contains("*") ||
+                                                    userInput.contains("/")||
+                                                    userInput.contains("%")) {
+                                                  print("contains %");
+                                                  if (second == 0) {
+                                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                                    // answer = answer + sum;
+                                                    print("second divide% is $second");
+                                                    userInput = userInput + '%';
+                                                    index = userInput.length;
+                                                  } else {
+                                                    first = first * second/100;
+                                                    userInput = userInput + '%';
+                                                    index = userInput.length;
+                                                    print("first divide% is $first");
+                                                    second = 0;
+                                                  }
+                                                } else {
+                                                  first = double.parse(userInput);
+                                                  // sum = int.parse(userInput);
+                                                  // answer = answer + sum;
+                                                  print("first diviDe% is $first");
+                                                  userInput = userInput + '%';
+                                                  index = userInput.length;
+                                                }
+                                                if (second == 0) {
+                                                  answer = 0;
+                                                } else {
+                                                  answer_double = first * second/100;
+                                                }
+
+                                                second = 0;
+                                                print("second multiple is $second");
+                                                print("answer multiple is $answer_double");
+                                                print("index multiple is $index");
+                                              });
+                                            }),),
                                     Expanded(
                                         flex: 1,
-                                        child: buildModalBottomTextButton("sqrt")),
+                                        child: TextButton(
+                                            child: Text(
+                                              "sqrt",
+                                              style: TextStyle(
+                                                  fontSize: 20, color: Colors.white),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                option = "sqrt(";
+                                                // if(userInput=="0"){
+                                                //   userInput="sqrt(";
+                                                // }
+                                                if (userInput.contains("-") ||
+                                                    userInput.contains("+") ||
+                                                    userInput.contains("*") ||
+                                                    userInput.contains("/") ||
+                                                    userInput.contains("%") ||
+                                                    userInput.contains("sqrt(")) {
+                                                  print("contains sqrt");
+                                                  index = userInput.length-1;
+                                                  if (second == 0) {
+                                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                                    // answer = answer + sum;
+                                                    print("second sqrt is $second");
+                                                    userInput =  'sqrt(' + userInput ;
+                                                    index = userInput.length-1;
+                                                  } else {
+                                                    first = sqrt(first);
+                                                    userInput =  'sqrt('+ userInput ;
+                                                    index = userInput.length;
+                                                    print("first divide% is $first");
+                                                    second = 0;
+                                                  }
+                                                } else {
+                                                  first = double.parse(userInput);
+                                                  // sum = int.parse(userInput);
+                                                  // answer = answer + sum;
+                                                  print("first sqrt is $first");
+                                                  userInput = 'sqrt('+userInput  ;
+                                                  index = userInput.length-1;
+                                                }
+                                                if (second == 0) {
+                                                  answer = 0;
+                                                } else {
+                                                  answer_double = sqrt(first);
+                                                }
+
+                                                second = 0;
+                                                print("second multiple is $second");
+                                                print("answer multiple is $answer_double");
+                                                print("index multiple is $index");
+                                              });
+                                            }),),
                                   ],
                                 ),
                               Row(
@@ -564,14 +694,29 @@ class _CalculatorState extends State<Calculator> {
                                       setState(() {
                                         if (userInput == '0') {
                                           userInput = value_button;
-                                        } else if (!userInput.contains("+") &&
+                                        } else if(userInput.contains("sqrt(0")) {
+                                          userInput="sqrt("+value_button;
+                                          first = double.parse(userInput
+                                              .substring(userInput.length -
+                                              (userInput.length -
+                                                  index)));
+                                        }
+                                        else if (!userInput.contains("+") &&
                                             !userInput.contains("-") &&
                                             !userInput.contains("*") &&
-                                            !userInput.contains("/")) {
+                                            !userInput.contains("/") &&
+                                            !userInput.contains("%") &&
+                                            !userInput.contains("sqrt(") ) {
                                           userInput = userInput + value_button;
                                           // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                           print("second is $second");
-                                        } else {
+                                        }
+                                        // else if (!userInput.contains("sqrt(")){
+                                        //   userInput = userInput + value_button;
+                                        //   // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                        //   print("second is $second");
+                                        // }
+                                        else {
                                           userInput = userInput + value_button;
                                           second = double.parse(userInput
                                               .substring(userInput.length -
