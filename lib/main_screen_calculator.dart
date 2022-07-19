@@ -1,3 +1,4 @@
+import 'package:calculator_test/constants.dart';
 import 'package:flutter/material.dart';
 
 class Calculator extends StatefulWidget {
@@ -10,12 +11,12 @@ class Calculator extends StatefulWidget {
 class _CalculatorState extends State<Calculator> {
   String option = '';
   int index = 0;
-  int second =0;
-  int first = 0;
-  String userInput='0';
+  double second = 0;
+  double first = 0;
+  String userInput = '0';
   String number = '';
-  double answer_double =0;
-  int answer = 0;
+  double answer_double = 0;
+  double answer = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,28 +28,32 @@ class _CalculatorState extends State<Calculator> {
             child: Padding(
               padding: const EdgeInsets.only(top: 150),
               child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-              Container(
-              padding: EdgeInsets.all(20),
-        alignment: Alignment.centerRight,
-        child: Text(
-          userInput,
-          style: TextStyle(fontSize: 18, color: Colors.white),
-        ),
-      ),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "$answer",
-                    style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                )
-              ]),
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      alignment: Alignment.centerRight,
+                      child: FittedBox(
+                        child: Text(
+                          userInput,
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(15),
+                      alignment: Alignment.centerRight,
+                      child: FittedBox(
+                        child: Text(
+                          "$answer",
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    )
+                  ]),
             ),
           ),
           Stack(
@@ -59,75 +64,72 @@ class _CalculatorState extends State<Calculator> {
                   child: Column(
                     children: [
                       Expanded(
-                        flex:1,
+                        flex: 1,
                         child: TextButton(
                             child: Text(
                               "C",
-                              style: TextStyle(fontSize: 45, color: Colors.white70),
+                              style: TextStyle(
+                                  fontSize: 45, color: Colors.white70),
                             ),
-                            onPressed: (){
+                            onPressed: () {
                               setState(() {
-
-                                userInput= userInput.substring(0,userInput.length-1);
-                                if(userInput==''){
+                                userInput = userInput.substring(
+                                    0, userInput.length - 1);
+                                if (userInput == '') {
                                   answer = 0;
-                                }
-                                else{
-
-                                }
+                                } else {}
                                 print(userInput);
                                 print(answer);
                                 // else{
                                 //   userInput= userInput.substring(0,userInput.length-1);
                                 // }
-
                               });
-
                             }),
                       ),
                       Expanded(
-                        flex:1,
+                        flex: 1,
                         child: TextButton(
                             child: Text(
                               "/",
-                              style: TextStyle(fontSize: 45, color: Colors.white70),
+                              style: TextStyle(
+                                  fontSize: 45, color: Colors.white70),
                             ),
-                            onPressed: (){
+                            onPressed: () {
                               setState(() {
                                 option = "/";
-                                if (userInput.contains("-")||userInput.contains("+")||userInput.contains("*")||userInput.contains("/")){
+                                if (userInput.contains("-") ||
+                                    userInput.contains("+") ||
+                                    userInput.contains("*") ||
+                                    userInput.contains("/")) {
                                   print("contains /");
-                                  if (second == 0){
+                                  if (second == 0) {
                                     // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                     // answer = answer + sum;
                                     print("second divide is $second");
                                     userInput = userInput + '/';
                                     index = userInput.length;
-                                  }
-                                  else{
-                                    first = first / second as int;
+                                  } else {
+                                    first = first / second;
                                     userInput = userInput + '/';
                                     index = userInput.length;
                                     print("first multiple is $first");
                                     second = 0;
                                   }
-                                }
-                                else{
-                                  first = int.parse(userInput);
+                                } else {
+                                  first = double.parse(userInput);
                                   // sum = int.parse(userInput);
                                   // answer = answer + sum;
                                   print("first multiple is $first");
                                   userInput = userInput + '/';
                                   index = userInput.length;
                                 }
-                                if(second ==0){
+                                if (second == 0) {
                                   answer = 0;
-                                }
-                                else{
+                                } else {
                                   answer_double = first / second;
                                 }
 
-                                second= 0;
+                                second = 0;
                                 print("second multiple is $second");
                                 print("answer multiple is $answer_double");
                                 print("index multiple is $index");
@@ -135,48 +137,49 @@ class _CalculatorState extends State<Calculator> {
                             }),
                       ),
                       Expanded(
-                        flex:1,
+                        flex: 1,
                         child: TextButton(
                             child: Text(
                               "*",
-                              style: TextStyle(fontSize: 45, color: Colors.white70),
+                              style: TextStyle(
+                                  fontSize: 45, color: Colors.white70),
                             ),
-                            onPressed: (){
+                            onPressed: () {
                               setState(() {
                                 option = "*";
-                                if (userInput.contains("-")||userInput.contains("+")||userInput.contains("*")||userInput.contains("/")){
+                                if (userInput.contains("-") ||
+                                    userInput.contains("+") ||
+                                    userInput.contains("*") ||
+                                    userInput.contains("/")) {
                                   print("contains *");
-                                  if (second == 0){
+                                  if (second == 0) {
                                     // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                     // answer = answer + sum;
                                     print("second multiple is $second");
                                     userInput = userInput + '*';
                                     index = userInput.length;
-                                  }
-                                  else{
+                                  } else {
                                     first = first * second;
                                     userInput = userInput + '*';
                                     index = userInput.length;
                                     print("first multiple is $first");
                                     second = 0;
                                   }
-                                }
-                                else{
-                                  first = int.parse(userInput);
+                                } else {
+                                  first = double.parse(userInput);
                                   // sum = int.parse(userInput);
                                   // answer = answer + sum;
                                   print("first multiple is $first");
                                   userInput = userInput + '*';
                                   index = userInput.length;
                                 }
-                                if(second ==0){
+                                if (second == 0) {
                                   answer = answer;
-                                }
-                                else{
-                                  answer = first * second;
+                                } else {
+                                  answer = first * second.toDouble();
                                 }
 
-                                second= 0;
+                                second = 0;
                                 print("second multiple is $second");
                                 print("answer multiple is $answer");
                                 print("index multiple is $index");
@@ -184,89 +187,93 @@ class _CalculatorState extends State<Calculator> {
                             }),
                       ),
                       Expanded(
-                        flex:1,
+                        flex: 1,
                         child: TextButton(
                             child: Text(
                               "+",
-                              style: TextStyle(fontSize: 45, color: Colors.white70),
+                              style: TextStyle(
+                                  fontSize: 45, color: Colors.white70),
                             ),
-                            onPressed: (){
+                            onPressed: () {
                               setState(() {
                                 option = "+";
-                                if (userInput.contains("+")||userInput.contains("-")||userInput.contains("*")||userInput.contains("/")){
+                                if (userInput.contains("+") ||
+                                    userInput.contains("-") ||
+                                    userInput.contains("*") ||
+                                    userInput.contains("/")) {
                                   print("contains +");
-                                  if (second == 0){
+                                  if (second == 0) {
                                     // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                     // answer = answer + sum;
                                     print("second is $second");
                                     userInput = userInput + '+';
                                     index = userInput.length;
-                                  }
-                                  else{
+                                  } else {
                                     first = first + second;
                                     userInput = userInput + '+';
                                     index = userInput.length;
                                     print("first is $first");
-                                    second =0;
+                                    second = 0;
                                   }
-                                }
-                                else{
-                                  first = int.parse(userInput);
+                                } else {
+                                  first = double.parse(userInput);
                                   // sum = int.parse(userInput);
                                   // answer = answer + sum;
                                   print("first is $first");
                                   userInput = userInput + '+';
                                   index = userInput.length;
                                 }
-                              answer = first + second;
-                                second= 0;
+                                answer = first + second.toDouble();
+                                second = 0;
                                 print("second is $second");
-                              print("answer is $answer");
-                              print("index is $index");
+                                print("answer is $answer");
+                                print("index is $index");
                               });
                             }),
                       ),
                       Expanded(
-                        flex:1,
+                        flex: 1,
                         child: TextButton(
                             child: Text(
                               "-",
-                              style: TextStyle(fontSize: 45, color: Colors.white70),
+                              style: TextStyle(
+                                  fontSize: 45, color: Colors.white70),
                             ),
-                            onPressed: (){
+                            onPressed: () {
                               setState(() {
-                              option = "-";
-                              if (userInput.contains("-")||userInput.contains("+")||userInput.contains("*")||userInput.contains("/")){
-                                print("contains -");
-                                if (second == 0){
-                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                option = "-";
+                                if (userInput.contains("-") ||
+                                    userInput.contains("+") ||
+                                    userInput.contains("*") ||
+                                    userInput.contains("/")) {
+                                  print("contains -");
+                                  if (second == 0) {
+                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                    // answer = answer + sum;
+                                    print("second minus is $second");
+                                    userInput = userInput + '-';
+                                    index = userInput.length;
+                                  } else {
+                                    first = first - second;
+                                    userInput = userInput + '-';
+                                    index = userInput.length;
+                                    print("first minus is $first");
+                                    second = 0;
+                                  }
+                                } else {
+                                  first = double.parse(userInput);
+                                  // sum = int.parse(userInput);
                                   // answer = answer + sum;
-                                  print("second minus is $second");
-                                  userInput = userInput + '-';
-                                  index = userInput.length;
-                                }
-                                else{
-                                  first = first - second;
-                                  userInput = userInput + '-';
-                                  index = userInput.length;
                                   print("first minus is $first");
-                                  second =0;
+                                  userInput = userInput + '-';
+                                  index = userInput.length;
                                 }
-                              }
-                              else{
-                                first = int.parse(userInput);
-                                // sum = int.parse(userInput);
-                                // answer = answer + sum;
-                                print("first minus is $first");
-                                userInput = userInput + '-';
-                                index = userInput.length;
-                              }
-                              answer = first - second;
-                              second= 0;
-                              print("second minus is $second");
-                              print("answer minus is $answer");
-                              print("index minus is $index");
-                                });
+                                answer = first - second.toDouble();
+                                second = 0;
+                                print("second minus is $second");
+                                print("answer minus is $answer");
+                                print("index minus is $index");
+                              });
                             }),
                       ),
                     ],
@@ -274,7 +281,7 @@ class _CalculatorState extends State<Calculator> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 80, top: 300,bottom: 30),
+                padding: const EdgeInsets.only(left: 80, top: 300, bottom: 30),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -282,8 +289,7 @@ class _CalculatorState extends State<Calculator> {
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(0),
                         bottomLeft: Radius.circular(0),
-                        bottomRight: Radius.circular(0)
-                    ),
+                        bottomRight: Radius.circular(0)),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
@@ -293,7 +299,6 @@ class _CalculatorState extends State<Calculator> {
                       ),
                     ],
                   ),
-
                   child: Stack(
                     children: [
                       Column(
@@ -303,81 +308,16 @@ class _CalculatorState extends State<Calculator> {
                             child: Row(
                               children: [
                                 Expanded(
-                                  flex:1,
-                                  child: TextButton(
-                                      child: Text(
-                                        "7",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
-                                      ),
-                                      onPressed: (){
-                                        setState((){
-                                          if (userInput=='0'){
-                                            userInput = '7';
-                                          }
-                                          else if(!userInput.contains("+") &&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
-                                            userInput= userInput + '7';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                          else{
-                                            userInput= userInput + '7';
-                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                        });
-
-
-                                      }),
+                                  flex: 1,
+                                  child: buildTextButton("7"),
                                 ),
                                 Expanded(
-                                  flex:1,
-                                  child: TextButton(
-                                      child: Text(
-                                          "8",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
-                                      ),
-                                      onPressed: (){
-                                        setState((){
-                                          if (userInput=='0'){
-                                            userInput = '8';
-                                          }
-                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
-                                            userInput= userInput + '8';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                          else{
-                                            userInput= userInput + '8';
-                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                        });
-                                      }),
+                                  flex: 1,
+                                  child: buildTextButton("8")
                                 ),
                                 Expanded(
-                                  flex:1,
-                                  child: TextButton(
-                                      child: Text(
-                                          "9",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
-                                      ),
-                                      onPressed: (){
-                                        setState((){
-                                          if (userInput=='0'){
-                                            userInput = '9';
-                                          }
-                                          else if (!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
-                                            userInput= userInput + '9';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                          else{
-                                            userInput= userInput + '9';
-                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                        });
-                                      }),
+                                  flex: 1,
+                                  child: buildTextButton("9"),
                                 )
                               ],
                             ),
@@ -387,165 +327,16 @@ class _CalculatorState extends State<Calculator> {
                             child: Row(
                               children: [
                                 Expanded(
-                                  flex:1,
-                                  child: TextButton(
-                                      child: Text(
-                                          "4",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
-                                      ),
-                                      onPressed: (){
-                                        setState((){
-                                          if (userInput=='0'){
-                                            userInput = '4';
-                                          }
-                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
-                                            userInput= userInput + '4';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                          else{
-                                            userInput= userInput + '4';
-                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                        });
-                                      }),
+                                  flex: 1,
+                                  child: buildTextButton("4"),
                                 ),
                                 Expanded(
-                                  flex:1,
-                                  child: TextButton(
-                                      child: Text(
-                                          "5",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
-                                      ),
-                                      onPressed: (){
-                                        setState((){
-                                          if (userInput=='0'){
-                                            userInput = '5';
-                                          }
-                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
-                                            userInput= userInput + '5';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("Contains + or -. Second is $second");
-                                          }
-                                          else{
-                                            userInput= userInput + '5';
-                                            print(userInput.length);
-                                            print(userInput.length-(userInput.length-index));
-                                            print(userInput.substring(userInput.length-(userInput.length-index)));
-                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                        });
-                                      }),
+                                  flex: 1,
+                                  child: buildTextButton("5"),
                                 ),
                                 Expanded(
-                                  flex:1,
-                                  child: TextButton(
-                                      child: Text(
-                                          "6",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
-                                      ),
-                                      onPressed: (){
-                                        setState((){
-                                          if (userInput=='0'){
-                                            userInput = '6';
-                                          }
-                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
-                                            userInput= userInput + '6';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                          else{
-                                            userInput= userInput + '6';
-                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                        });
-                                      }),
-                                )
-
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex:1,
-                                  child: TextButton(
-                                      child: Text(
-                                          "1",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
-                                      ),
-                                      onPressed: (){
-                                        setState((){
-                                          if (userInput=='0'){
-                                            userInput = '1';
-                                          }
-                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
-                                            userInput= userInput + '1';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                          else{
-                                            userInput= userInput + '1';
-                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                        });
-                                      }),
-                                ),
-                                Expanded(
-                                  flex:1,
-                                  child: TextButton(
-                                      child: Text(
-                                          "2",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
-                                      ),
-                                      onPressed: (){
-                                        setState((){
-                                          if (userInput=='0'){
-                                            userInput = '2';
-                                          }
-                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
-                                            userInput= userInput + '2';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                          else{
-                                            userInput= userInput + '2';
-                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                        });
-                                      }),
-                                ),
-                                Expanded(
-                                  flex:1,
-                                  child: TextButton(
-                                      child: Text(
-                                          "3",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
-                                      ),
-                                      onPressed: (){
-                                        setState((){
-                                          if (userInput=='0'){
-                                            userInput = '3';
-                                          }
-                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
-                                            userInput= userInput + '3';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                          else{
-                                            userInput= userInput + '3';
-                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                        });
-                                      }),
+                                  flex: 1,
+                                  child: buildTextButton("6"),
                                 )
                               ],
                             ),
@@ -555,83 +346,86 @@ class _CalculatorState extends State<Calculator> {
                             child: Row(
                               children: [
                                 Expanded(
-                                  flex:1,
-                                  child: TextButton(
-                                      child: Text(
-                                          ".",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
-                                      ),
-                                      onPressed: (){
-                                        setState((){
-                                          if (userInput=='0'){
-                                            userInput = '0.';
-                                          }
-                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
-                                            userInput= userInput + '.';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                          else{
-                                            userInput= userInput + '.';
-                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-
-                                        });
-                                      }),
+                                  flex: 1,
+                                  child: buildTextButton("1"),
                                 ),
                                 Expanded(
-                                  flex:1,
-                                  child: TextButton(
-                                      child: Text(
-                                          "0",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
-                                      ),
-                                      onPressed: (){
-                                        setState((){
-                                          if (userInput=='0'){
-                                            userInput = '0';
-                                          }
-                                          else if(!userInput.contains("+")&&!userInput.contains("-")&&!userInput.contains("*")&&!userInput.contains("/")){
-                                            userInput= userInput + '0';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                          else{
-                                            userInput= userInput + '0';
-                                            second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                            print("second is $second");
-                                          }
-                                        });
-                                      }),
+                                  flex: 1,
+                                  child: buildTextButton("2"),
                                 ),
                                 Expanded(
-                                  flex:1,
+                                  flex: 1,
+                                  child: buildTextButton("3"),
+                                )
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
                                   child: TextButton(
                                       child: Text(
-                                          "=",
-                                        style: TextStyle(fontSize: 45, color: Colors.black45),
+                                        ".",
+                                        style: TextStyle(
+                                            fontSize: 45,
+                                            color: Colors.black45),
                                       ),
-                                      onPressed: (){
+                                      onPressed: () {
                                         setState(() {
-                                          if (option == "+"){
-                                            answer = first + second;
+                                          if (userInput == '0') {
+                                            userInput = '0.';
+                                          } else if (!userInput.contains("+") &&
+                                              !userInput.contains("-") &&
+                                              !userInput.contains("*") &&
+                                              !userInput.contains("/")) {
+                                            userInput = userInput + '.';
+                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                            print("second is $second");
+                                          } else {
+                                            userInput = userInput + '.';
+                                            second = double.parse(userInput
+                                                .substring(userInput.length -
+                                                    (userInput.length -
+                                                        index)));
+                                            print("second is $second");
+                                          }
+                                        });
+                                      }),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: buildTextButton('0'),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: TextButton(
+                                      child: Text(
+                                        "=",
+                                        style: TextStyle(
+                                            fontSize: 45,
+                                            color: Colors.black45),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (option == "+") {
+                                            answer = first + second.toDouble();
                                             second = 0;
                                             first = answer;
-                                          }
-                                          else if (option == "-"){
-                                            answer = first - second;
+                                          } else if (option == "-") {
+                                            answer = first - second.toDouble();
                                             second = 0;
                                             first = answer;
-                                          }
-                                          else if (option == "*"){
+                                          } else if (option == "*") {
                                             answer = first * second;
                                             second = 0;
                                             first = answer;
-                                          }
-                                          else if (option == "/"){
+                                          } else if (option == "/") {
                                             answer_double = first / second;
-                                            answer = answer_double.toInt();
+
+                                            answer = answer_double;
                                             second = 0;
                                             first = answer;
                                           }
@@ -640,32 +434,115 @@ class _CalculatorState extends State<Calculator> {
                                         });
                                       }),
                                 )
-
                               ],
                             ),
                           )
                         ],
                       ),
-
                     ],
                   ),
                 ),
-
               ),
             ],
           ),
-
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-
               height: 30,
               width: double.infinity,
               color: Colors.black,
               child: IconButton(
-                icon: Icon(Icons.keyboard_arrow_up_rounded, color: Colors.white,),
-                onPressed: (){
-
+                icon: Icon(
+                  Icons.keyboard_arrow_up_rounded,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  showModalBottomSheet(
+                    enableDrag: true,
+                      // shape: const RoundedRectangleBorder(
+                      //     borderRadius:
+                      //     BorderRadius.vertical(top: Radius.circular(25.0))
+                      // ),
+                      backgroundColor: Colors.black,
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) => Padding(
+                        padding: EdgeInsets.only(top: 20,  right: 20,  left: 20,
+                            bottom: MediaQuery.of(context).viewInsets.bottom),
+                        child: Container(
+                          color: Colors.black,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        flex:1,
+                                        child: buildModalBottomTextButton("INV")),
+                                    Expanded(
+                                        flex: 1,
+                                        child: buildModalBottomTextButton("RAD")),
+                                    Expanded(
+                                        flex: 1,
+                                        child: buildModalBottomTextButton("%")),
+                                    Expanded(
+                                        flex: 1,
+                                        child: buildModalBottomTextButton("sqrt")),
+                                  ],
+                                ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      flex:1,
+                                      child: buildModalBottomTextButton("sin")),
+                                  Expanded(
+                                      flex: 1,
+                                      child: buildModalBottomTextButton("cos")),
+                                  Expanded(
+                                      flex: 1,
+                                      child: buildModalBottomTextButton("tan")),
+                                  Expanded(
+                                      flex: 1,
+                                      child: buildModalBottomTextButton("ln")),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      flex:1,
+                                      child: buildModalBottomTextButton("log")),
+                                  Expanded(
+                                      flex: 1,
+                                      child: buildModalBottomTextButton("!")),
+                                  Expanded(
+                                      flex: 1,
+                                      child: buildModalBottomTextButton("Pi")),
+                                  Expanded(
+                                      flex: 1,
+                                      child: buildModalBottomTextButton("e")),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      flex:1,
+                                      child: buildModalBottomTextButton("^")),
+                                  Expanded(
+                                      flex: 1,
+                                      child: buildModalBottomTextButton("(")),
+                                  Expanded(
+                                      flex: 1,
+                                      child: buildModalBottomTextButton(")")),
+                                  Expanded(
+                                      flex: 1,
+                                      child: buildModalBottomTextButton("v")),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ));
                 },
               ),
             ),
@@ -673,5 +550,66 @@ class _CalculatorState extends State<Calculator> {
         ],
       ),
     );
+  }
+
+  TextButton buildTextButton(String value_button) {
+    return TextButton(
+                                    child: Text(
+                                      value_button,
+                                      style: TextStyle(
+                                          fontSize: 45,
+                                          color: Colors.black45),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (userInput == '0') {
+                                          userInput = value_button;
+                                        } else if (!userInput.contains("+") &&
+                                            !userInput.contains("-") &&
+                                            !userInput.contains("*") &&
+                                            !userInput.contains("/")) {
+                                          userInput = userInput + value_button;
+                                          // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                          print("second is $second");
+                                        } else {
+                                          userInput = userInput + value_button;
+                                          second = double.parse(userInput
+                                              .substring(userInput.length -
+                                                  (userInput.length -
+                                                      index)));
+                                          print("second is $second");
+                                        }
+                                      });
+                                    });
+  }
+  TextButton buildModalBottomTextButton(String value_bottom_button) {
+    return TextButton(
+        child: Text(
+          value_bottom_button,
+          style: TextStyle(
+              fontSize: 20,
+              color: Colors.white),
+        ),
+        onPressed: () {
+          setState(() {
+            if (userInput == '0') {
+              userInput = value_bottom_button;
+            } else if (!userInput.contains("+") &&
+                !userInput.contains("-") &&
+                !userInput.contains("*") &&
+                !userInput.contains("/")) {
+              userInput = userInput + value_bottom_button;
+              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+              print("second is $second");
+            } else {
+              userInput = userInput + value_bottom_button;
+              second = double.parse(userInput
+                  .substring(userInput.length -
+                  (userInput.length -
+                      index)));
+              print("second is $second");
+            }
+          });
+        });
   }
 }
