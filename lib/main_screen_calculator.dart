@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:calculator_test/constants.dart';
 import 'package:flutter/material.dart';
-
+const double pi = 3.1415926535897932;
 class Calculator extends StatefulWidget {
   const Calculator({Key? key}) : super(key: key);
 
@@ -460,6 +460,38 @@ class _CalculatorState extends State<Calculator> {
                                             second = 0;
                                             first = answer;
                                           }
+                                          else if (option == "sin(") {
+                                            userInput = userInput+")";
+                                            print(userInput.length);
+                                            print(index);
+                                            print(userInput.length-index>=2);
+                                            print(first);
+                                            if (userInput.length-index>2){
+                                              answer_double = second*0.017;
+                                            }
+                                            else {
+                                              answer_double = first*0.017;
+                                            }
+                                            answer = answer_double;
+                                            second = 0;
+                                            first = answer;
+                                          }
+                                          else if (option == "cos(") {
+                                            userInput = userInput+")";
+                                            print(userInput.length);
+                                            print(index);
+                                            print(userInput.length-index>=2);
+                                            print(second);
+                                            if (userInput.length-index>2){
+                                              answer_double = second*pi/180;
+                                            }
+                                            else {
+                                              answer_double = first*pi/180;
+                                            }
+                                            answer = answer_double;
+                                            second = 0;
+                                            first = answer;
+                                          }
                                           // answer = first + second;
                                           // print("answer is $answer");
                                         });
@@ -625,10 +657,119 @@ class _CalculatorState extends State<Calculator> {
                                 children: [
                                   Expanded(
                                       flex:1,
-                                      child: buildModalBottomTextButton("sin")),
+                                      child: TextButton(
+                                          child: Text(
+                                            "sin",
+                                            style: TextStyle(
+                                                fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              option = "sin(";
+                                              // if(userInput=="0"){
+                                              //   userInput="sqrt(";
+                                              // }
+                                              if (userInput.contains("-") ||
+                                                  userInput.contains("+") ||
+                                                  userInput.contains("*") ||
+                                                  userInput.contains("/") ||
+                                                  userInput.contains("%") ||
+                                                  userInput.contains("sqrt(") ||
+                                                  userInput.contains("sin(")
+                                              ) {
+                                                print("contains sin");
+                                                index = userInput.length-1;
+                                                if (second == 0) {
+                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                                  // answer = answer + sum;
+                                                  print("second sin( is $second");
+                                                  userInput =  'sin(' + userInput ;
+                                                  index = userInput.length-1;
+                                                } else {
+                                                  first = first*0.017;
+                                                  userInput =  'sin('+ userInput ;
+                                                  index = userInput.length;
+                                                  print("first sin is $first");
+                                                  second = 0;
+                                                }
+                                              } else {
+                                                first = double.parse(userInput);
+                                                // sum = int.parse(userInput);
+                                                // answer = answer + sum;
+                                                print("first sin is $first");
+                                                userInput = 'sin('+userInput  ;
+                                                index = userInput.length-1;
+                                              }
+                                              if (second == 0) {
+                                                answer = 0;
+                                              } else {
+                                                answer_double = first * 0.017;
+                                              }
+
+                                              second = 0;
+                                              print("second multiple is $second");
+                                              print("answer multiple is $answer_double");
+                                              print("index multiple is $index");
+                                            });
+                                          }),),
                                   Expanded(
                                       flex: 1,
-                                      child: buildModalBottomTextButton("cos")),
+                                      child: TextButton(
+                                          child: Text(
+                                            "cos",
+                                            style: TextStyle(
+                                                fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              option = "cos(";
+                                              // if(userInput=="0"){
+                                              //   userInput="sqrt(";
+                                              // }
+                                              if (userInput.contains("-") ||
+                                                  userInput.contains("+") ||
+                                                  userInput.contains("*") ||
+                                                  userInput.contains("/") ||
+                                                  userInput.contains("%") ||
+                                                  userInput.contains("sqrt(") ||
+                                                  userInput.contains("sin(") ||
+                                                  userInput.contains("cos(")
+                                              ) {
+                                                print("contains cos");
+                                                index = userInput.length-1;
+                                                if (second == 0) {
+                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                                  // answer = answer + sum;
+                                                  print("second cos( is $second");
+                                                  userInput =  'cos(' + userInput ;
+                                                  index = userInput.length-1;
+                                                } else {
+                                                  first = first*pi/180;
+                                                  userInput =  'cos('+ userInput ;
+                                                  index = userInput.length;
+                                                  print("first sin is $first");
+                                                  second = 0;
+                                                }
+                                              } else {
+                                                first = double.parse(userInput);
+                                                // sum = int.parse(userInput);
+                                                // answer = answer + sum;
+                                                print("first cos is $first");
+                                                userInput = 'cos('+userInput  ;
+                                                index = userInput.length-1;
+                                              }
+                                              if (second == 0) {
+                                                answer = 0;
+                                              } else {
+                                                answer_double = first * pi/180;
+                                              }
+
+                                              second = 0;
+                                              print("second multiple is $second");
+                                              print("answer multiple is $answer_double");
+                                              print("index multiple is $index");
+                                            });
+                                          }),),
                                   Expanded(
                                       flex: 1,
                                       child: buildModalBottomTextButton("tan")),
@@ -694,8 +835,22 @@ class _CalculatorState extends State<Calculator> {
                                       setState(() {
                                         if (userInput == '0') {
                                           userInput = value_button;
-                                        } else if(userInput.contains("sqrt(0")) {
+                                        } else if(userInput.contains("sqrt(0") ) {
                                           userInput="sqrt("+value_button;
+                                          first = double.parse(userInput
+                                              .substring(userInput.length -
+                                              (userInput.length -
+                                                  index)));
+                                        }
+                                        else if(userInput.contains("sin(0") ) {
+                                          userInput="sin("+value_button;
+                                          first = double.parse(userInput
+                                              .substring(userInput.length -
+                                              (userInput.length -
+                                                  index)));
+                                        }
+                                        else if(userInput.contains("cos(0")) {
+                                          userInput="cos("+value_button;
                                           first = double.parse(userInput
                                               .substring(userInput.length -
                                               (userInput.length -
@@ -706,7 +861,9 @@ class _CalculatorState extends State<Calculator> {
                                             !userInput.contains("*") &&
                                             !userInput.contains("/") &&
                                             !userInput.contains("%") &&
-                                            !userInput.contains("sqrt(") ) {
+                                            !userInput.contains("sqrt(") &&
+                                            !userInput.contains("sin(") &&
+                                            !userInput.contains("cos(")) {
                                           userInput = userInput + value_button;
                                           // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                           print("second is $second");
