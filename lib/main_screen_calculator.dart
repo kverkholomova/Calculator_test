@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:calculator_test/constants.dart';
 import 'package:flutter/material.dart';
+double logBase(num x, num base) => log(x) / log(base);
 const double pi = 3.1415926535897932;
+const double e_const= e;
 class Calculator extends StatefulWidget {
   const Calculator({Key? key}) : super(key: key);
 
@@ -78,6 +80,7 @@ class _CalculatorState extends State<Calculator> {
                               userInput = userInput.substring(
                                   0, userInput.length - 1);
                               if (userInput == '') {
+                                userInput='0';
                                 answer = 0;
                               } else {}
                               print(userInput);
@@ -86,7 +89,13 @@ class _CalculatorState extends State<Calculator> {
                               //   userInput= userInput.substring(0,userInput.length-1);
                               // }
                             });
-                          }),
+                          },
+                      // onLongPress: (){
+                      //       userInput = '0';
+                      //       print(userInput);
+                      //       answer=0;
+                      // },
+                      ),
                     ),
                     Expanded(
                       flex: 1,
@@ -467,10 +476,10 @@ class _CalculatorState extends State<Calculator> {
                                             print(userInput.length-index>=2);
                                             print(first);
                                             if (userInput.length-index>2){
-                                              answer_double = second*0.017;
+                                              answer_double = sin(second);
                                             }
                                             else {
-                                              answer_double = first*0.017;
+                                              answer_double = sin(first);
                                             }
                                             answer = answer_double;
                                             second = 0;
@@ -483,10 +492,58 @@ class _CalculatorState extends State<Calculator> {
                                             print(userInput.length-index>=2);
                                             print(second);
                                             if (userInput.length-index>2){
-                                              answer_double = second*pi/180;
+                                              answer_double = cos(second);
                                             }
                                             else {
-                                              answer_double = first*pi/180;
+                                              answer_double = cos(first);
+                                            }
+                                            answer = answer_double;
+                                            second = 0;
+                                            first = answer;
+                                          }
+                                          else if (option == "tan(") {
+                                            userInput = userInput+")";
+                                            print(userInput.length);
+                                            print(index);
+                                            print(userInput.length-index>=2);
+                                            print(second);
+                                            if (userInput.length-index>2){
+                                              answer_double = tan(second);
+                                            }
+                                            else {
+                                              answer_double = tan(first);
+                                            }
+                                            answer = answer_double;
+                                            second = 0;
+                                            first = answer;
+                                          }
+                                          else if (option == "log(") {
+                                            userInput = userInput+")";
+                                            print(userInput.length);
+                                            print(index);
+                                            print(userInput.length-index>=2);
+                                            print(second);
+                                            if (userInput.length-index>2){
+                                              answer_double = logBase(second, 10);
+                                            }
+                                            else {
+                                              answer_double = logBase(first, 10);
+                                            }
+                                            answer = answer_double;
+                                            second = 0;
+                                            first = answer;
+                                          }
+                                          else if (option == "ln(") {
+                                            userInput = userInput+")";
+                                            print(userInput.length);
+                                            print(index);
+                                            print(userInput.length-index>=2);
+                                            print(second);
+                                            if (userInput.length-index>2){
+                                              answer_double = logBase(second, e_const);
+                                            }
+                                            else {
+                                              answer_double = logBase(first, e_const);
                                             }
                                             answer = answer_double;
                                             second = 0;
@@ -686,7 +743,7 @@ class _CalculatorState extends State<Calculator> {
                                                   userInput =  'sin(' + userInput ;
                                                   index = userInput.length-1;
                                                 } else {
-                                                  first = first*0.017;
+                                                  first = sin(first);
                                                   userInput =  'sin('+ userInput ;
                                                   index = userInput.length;
                                                   print("first sin is $first");
@@ -703,7 +760,7 @@ class _CalculatorState extends State<Calculator> {
                                               if (second == 0) {
                                                 answer = 0;
                                               } else {
-                                                answer_double = first * 0.017;
+                                                answer_double = sin(first);
                                               }
 
                                               second = 0;
@@ -744,7 +801,7 @@ class _CalculatorState extends State<Calculator> {
                                                   userInput =  'cos(' + userInput ;
                                                   index = userInput.length-1;
                                                 } else {
-                                                  first = first*pi/180;
+                                                  first = cos(first);
                                                   userInput =  'cos('+ userInput ;
                                                   index = userInput.length;
                                                   print("first sin is $first");
@@ -761,7 +818,7 @@ class _CalculatorState extends State<Calculator> {
                                               if (second == 0) {
                                                 answer = 0;
                                               } else {
-                                                answer_double = first * pi/180;
+                                                answer_double = cos(first);
                                               }
 
                                               second = 0;
@@ -772,26 +829,265 @@ class _CalculatorState extends State<Calculator> {
                                           }),),
                                   Expanded(
                                       flex: 1,
-                                      child: buildModalBottomTextButton("tan")),
+                                      child: TextButton(
+                                          child: Text(
+                                            "tan",
+                                            style: TextStyle(
+                                                fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              option = "tan(";
+                                              // if(userInput=="0"){
+                                              //   userInput="sqrt(";
+                                              // }
+                                              if (userInput.contains("-") ||
+                                                  userInput.contains("+") ||
+                                                  userInput.contains("*") ||
+                                                  userInput.contains("/") ||
+                                                  userInput.contains("%") ||
+                                                  userInput.contains("sqrt(") ||
+                                                  userInput.contains("sin(") ||
+                                                  userInput.contains("cos(") ||
+                                                  userInput.contains("tan(")
+                                              ) {
+                                                print("contains tan");
+                                                index = userInput.length-1;
+                                                if (second == 0) {
+                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                                  // answer = answer + sum;
+                                                  print("second tan( is $second");
+                                                  userInput =  'tan(' + userInput ;
+                                                  index = userInput.length-1;
+                                                } else {
+                                                  first = tan(first);
+                                                  userInput =  'tan('+ userInput ;
+                                                  index = userInput.length;
+                                                  print("first tan is $first");
+                                                  second = 0;
+                                                }
+                                              } else {
+                                                first = double.parse(userInput);
+                                                // sum = int.parse(userInput);
+                                                // answer = answer + sum;
+                                                print("first tan is $first");
+                                                userInput = 'tan('+userInput  ;
+                                                index = userInput.length-1;
+                                              }
+                                              if (second == 0) {
+                                                answer = 0;
+                                              } else {
+                                                answer_double = tan(first);
+                                              }
+
+                                              second = 0;
+                                              print("second multiple is $second");
+                                              print("answer multiple is $answer_double");
+                                              print("index multiple is $index");
+                                            });
+                                          }),),
                                   Expanded(
                                       flex: 1,
-                                      child: buildModalBottomTextButton("ln")),
+                                      child: TextButton(
+                                          child: Text(
+                                            "ln",
+                                            style: TextStyle(
+                                                fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              option = "ln(";
+                                              // if(userInput=="0"){
+                                              //   userInput="sqrt(";
+                                              // }
+                                              if (userInput.contains("-") ||
+                                                  userInput.contains("+") ||
+                                                  userInput.contains("*") ||
+                                                  userInput.contains("/") ||
+                                                  userInput.contains("%") ||
+                                                  userInput.contains("sqrt(") ||
+                                                  userInput.contains("sin(") ||
+                                                  userInput.contains("cos(") ||
+                                                  userInput.contains("tan(") ||
+                                                  userInput.contains("log(") ||
+                                                  userInput.contains("ln(")
+                                              ) {
+                                                print("contains ln");
+                                                index = userInput.length-1;
+                                                if (second == 0) {
+                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                                  // answer = answer + sum;
+                                                  print("second ln( is $second");
+                                                  userInput =  'ln(' + userInput ;
+                                                  index = userInput.length-1;
+                                                } else {
+                                                  first = logBase(first, e_const);
+                                                  userInput =  'ln('+ userInput ;
+                                                  index = userInput.length;
+                                                  print("first ln is $first");
+                                                  second = 0;
+                                                }
+                                              } else {
+                                                first = double.parse(userInput);
+                                                // sum = int.parse(userInput);
+                                                // answer = answer + sum;
+                                                print("first ln is $first");
+                                                userInput = 'ln('+userInput  ;
+                                                index = userInput.length-1;
+                                              }
+                                              if (second == 0) {
+                                                answer = 0;
+                                              } else {
+                                                answer_double = logBase(first, e_const);
+                                              }
+
+                                              second = 0;
+                                              print("second multiple is $second");
+                                              print("answer multiple is $answer_double");
+                                              print("index multiple is $index");
+                                            });
+                                          }),),
                                 ],
                               ),
                               Row(
                                 children: [
                                   Expanded(
                                       flex:1,
-                                      child: buildModalBottomTextButton("log")),
+                                      child: TextButton(
+                                          child: Text(
+                                            "log",
+                                            style: TextStyle(
+                                                fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              option = "log(";
+                                              // if(userInput=="0"){
+                                              //   userInput="sqrt(";
+                                              // }
+                                              if (userInput.contains("-") ||
+                                                  userInput.contains("+") ||
+                                                  userInput.contains("*") ||
+                                                  userInput.contains("/") ||
+                                                  userInput.contains("%") ||
+                                                  userInput.contains("sqrt(") ||
+                                                  userInput.contains("sin(") ||
+                                                  userInput.contains("cos(") ||
+                                                  userInput.contains("tan(") ||
+                                                  userInput.contains("log(")
+                                              ) {
+                                                print("contains log");
+                                                index = userInput.length-1;
+                                                if (second == 0) {
+                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                                  // answer = answer + sum;
+                                                  print("second log( is $second");
+                                                  userInput =  'log(' + userInput ;
+                                                  index = userInput.length-1;
+                                                } else {
+                                                  first = logBase(first, 10);
+                                                  userInput =  'log('+ userInput ;
+                                                  index = userInput.length;
+                                                  print("first log is $first");
+                                                  second = 0;
+                                                }
+                                              } else {
+                                                first = double.parse(userInput);
+                                                // sum = int.parse(userInput);
+                                                // answer = answer + sum;
+                                                print("first log is $first");
+                                                userInput = 'log('+userInput  ;
+                                                index = userInput.length-1;
+                                              }
+                                              if (second == 0) {
+                                                answer = 0;
+                                              } else {
+                                                answer_double = logBase(first, 10);
+                                              }
+
+                                              second = 0;
+                                              print("second multiple is $second");
+                                              print("answer multiple is $answer_double");
+                                              print("index multiple is $index");
+                                            });
+                                          }),),
                                   Expanded(
                                       flex: 1,
                                       child: buildModalBottomTextButton("!")),
                                   Expanded(
                                       flex: 1,
-                                      child: buildModalBottomTextButton("Pi")),
+                                      child: TextButton(
+                                          child: Text(
+                                            "Pi",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              if (userInput == '0') {
+                                                userInput = pi.toString();
+                                              } else if (!userInput.contains("+") &&
+                                                  !userInput.contains("-") &&
+                                                  !userInput.contains("*") &&
+                                                  !userInput.contains("/")) {
+                                                userInput = userInput + pi.toString();
+                                                // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                                print("second is $second");
+                                              } else {
+                                                userInput = userInput + pi.toString();
+                                                second = double.parse(userInput
+                                                    .substring(userInput.length -
+                                                    (userInput.length -
+                                                        index)));
+                                                print("second is $second");
+                                              }
+                                            });
+                                          })),
                                   Expanded(
                                       flex: 1,
-                                      child: buildModalBottomTextButton("e")),
+                                      child: TextButton(
+                                          child: Text(
+                                            "e",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              if(userInput.contains("log(0")) {
+                                                userInput="log("+e_const.toString();
+                                                first = double.parse(userInput
+                                                    .substring(userInput.length -
+                                                    (userInput.length -
+                                                        index)));
+                                              }
+                                              // else if(userInput.contains("ln(0")) {
+                                              //   userInput="ln("+e_const.toString();
+                                              //   first = double.parse(userInput
+                                              //       .substring(userInput.length -
+                                              //       (userInput.length -
+                                              //           index)));
+                                              // }
+                                              if (userInput == '0') {
+                                                userInput = e.toString();
+                                              } else if (!userInput.contains("+") &&
+                                                  !userInput.contains("-") &&
+                                                  !userInput.contains("*") &&
+                                                  !userInput.contains("/")) {
+                                                userInput = userInput + e.toString();
+                                                // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                                print("second is $second");
+                                              } else {
+                                                userInput = userInput + e.toString();
+                                                second = double.parse(userInput
+                                                    .substring(userInput.length -
+                                                    (userInput.length -
+                                                        index)));
+                                                print("second is $second");
+                                              }
+                                            });
+                                          })),
                                 ],
                               ),
                               Row(
@@ -856,6 +1152,27 @@ class _CalculatorState extends State<Calculator> {
                                               (userInput.length -
                                                   index)));
                                         }
+                                        else if(userInput.contains("tan(0")) {
+                                          userInput="tan("+value_button;
+                                          first = double.parse(userInput
+                                              .substring(userInput.length -
+                                              (userInput.length -
+                                                  index)));
+                                        }
+                                        else if(userInput.contains("log(0")) {
+                                          userInput="log("+value_button;
+                                          first = double.parse(userInput
+                                              .substring(userInput.length -
+                                              (userInput.length -
+                                                  index)));
+                                        }
+                                        else if(userInput.contains("ln(0")) {
+                                          userInput="ln("+value_button;
+                                          first = double.parse(userInput
+                                              .substring(userInput.length -
+                                              (userInput.length -
+                                                  index)));
+                                        }
                                         else if (!userInput.contains("+") &&
                                             !userInput.contains("-") &&
                                             !userInput.contains("*") &&
@@ -863,7 +1180,10 @@ class _CalculatorState extends State<Calculator> {
                                             !userInput.contains("%") &&
                                             !userInput.contains("sqrt(") &&
                                             !userInput.contains("sin(") &&
-                                            !userInput.contains("cos(")) {
+                                            !userInput.contains("cos(") &&
+                                            !userInput.contains("tan(") &&
+                                            !userInput.contains("log(") &&
+                                            !userInput.contains("ln(")) {
                                           userInput = userInput + value_button;
                                           // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                           print("second is $second");
