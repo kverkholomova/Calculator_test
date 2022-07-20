@@ -66,6 +66,7 @@ class _CalculatorState extends State<Calculator> {
         userInput.contains("ln(") ||
         userInput.contains("!(") ||
         userInput.contains("^");
+    print(isOkSideButton);
   }
   @override
   Widget build(BuildContext context) {
@@ -152,19 +153,7 @@ class _CalculatorState extends State<Calculator> {
                           onPressed: () {
                             setState(() {
                               option = "/";
-                              if (userInput.contains("-") ||
-                                  userInput.contains("+") ||
-                                  userInput.contains("*") ||
-                                  userInput.contains("/") ||
-                                  userInput.contains("%") ||
-                                  userInput.contains("sqrt(") ||
-                                  userInput.contains("sin(") ||
-                                  userInput.contains("cos(") ||
-                                  userInput.contains("tan(") ||
-                                  userInput.contains("log(") ||
-                                  userInput.contains("ln(") ||
-                                  userInput.contains("!(") ||
-                                  userInput.contains("^")) {
+                              if (isOkSideButton) {
 
                                 if (second == 0) {
                                   // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
