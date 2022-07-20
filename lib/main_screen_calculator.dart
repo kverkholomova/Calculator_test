@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'dart:math';
 
 import 'package:calculator_test/constants.dart';
@@ -5,6 +6,14 @@ import 'package:flutter/material.dart';
 double logBase(num x, num base) => log(x) / log(base);
 const double pi = 3.1415926535897932;
 const double e_const= e;
+
+factorial(var num){
+  int factorial=1;
+  for( int i = num; i >= 1; i-- ) {
+    factorial =factorial*i ;
+  }
+  return factorial;
+}
 class Calculator extends StatefulWidget {
   const Calculator({Key? key}) : super(key: key);
 
@@ -20,8 +29,9 @@ class _CalculatorState extends State<Calculator> {
   String userInput = '0';
   String number = '';
   double answer_double = 0;
+  int answer_int=0;
   double answer = 0;
-  String third ="";
+  num third =0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -549,6 +559,41 @@ class _CalculatorState extends State<Calculator> {
                                             second = 0;
                                             first = answer;
                                           }
+                                          else if (option == "!(") {
+                                            userInput = userInput+")";
+                                            print(userInput.length);
+                                            print(index);
+                                            print(userInput.length-index>=2);
+                                            print(second);
+                                            if (userInput.length-index>2){
+                                              answer_int = factorial(second.toInt());
+                                              answer_double = answer_int.toDouble();
+                                            }
+                                            else {
+                                              answer_int = factorial(first.toInt());
+                                              answer_double = answer_int.toDouble();
+                                            }
+                                            answer = answer_double;
+                                            second = 0;
+                                            first = answer;
+                                          }
+                                          else if (option == "^") {
+                                            // userInput = userInput+")";
+                                            print(userInput.length);
+                                            print(index);
+                                            print(userInput.length-index>=1);
+                                            print(second);
+                                            if (userInput.length-index>=1){
+                                              third = pow(first, second);
+                                              answer_double =third.toDouble();
+                                            }
+                                            else {
+                                              answer_double=0.1;
+                                            }
+                                            answer = answer_double;
+                                            second = 0;
+                                            first = answer;
+                                          }
                                           // answer = first + second;
                                           // print("answer is $answer");
                                         });
@@ -1013,7 +1058,70 @@ class _CalculatorState extends State<Calculator> {
                                           }),),
                                   Expanded(
                                       flex: 1,
-                                      child: buildModalBottomTextButton("!")),
+                                      child: TextButton(
+                                          child: Text(
+                                            "!",
+                                            style: TextStyle(
+                                                fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              option = "!(";
+                                              // if(userInput=="0"){
+                                              //   userInput="sqrt(";
+                                              // }
+                                              if (userInput.contains("-") ||
+                                                  userInput.contains("+") ||
+                                                  userInput.contains("*") ||
+                                                  userInput.contains("/") ||
+                                                  userInput.contains("%") ||
+                                                  userInput.contains("sqrt(") ||
+                                                  userInput.contains("sin(") ||
+                                                  userInput.contains("cos(") ||
+                                                  userInput.contains("tan(") ||
+                                                  userInput.contains("log(") ||
+                                                  userInput.contains("ln(") ||
+                                                  userInput.contains("!(")
+                                              ) {
+                                                print("contains !");
+                                                index = userInput.length-1;
+                                                if (second == 0) {
+                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                                  // answer = answer + sum;
+                                                  print("second !( is $second");
+                                                  userInput =  '!(' + userInput ;
+                                                  index = userInput.length-1;
+                                                } else {
+                                                  answer_int = factorial(first.toInt());
+                                                  first = answer_int.toDouble();
+                                                  // first = factorial(first.toInt());
+                                                  userInput =  '!('+ userInput ;
+                                                  index = userInput.length;
+                                                  print("first ! is $first");
+                                                  second = 0;
+                                                }
+                                              } else {
+                                                first = double.parse(userInput);
+                                                // sum = int.parse(userInput);
+                                                // answer = answer + sum;
+                                                print("first ! is $first");
+                                                userInput = '!('+userInput  ;
+                                                index = userInput.length-1;
+                                              }
+                                              if (second == 0) {
+                                                answer = 0;
+                                              } else {
+                                                answer_int = factorial(first.toInt());
+                                                first = answer_int.toDouble();
+                                                // answer_double = factorial(first.toInt()) ;
+                                              }
+
+                                              second = 0;
+                                              print("second multiple is $second");
+                                              print("answer multiple is $answer_double");
+                                              print("index multiple is $index");
+                                            });
+                                          }),),
                                   Expanded(
                                       flex: 1,
                                       child: TextButton(
@@ -1094,7 +1202,67 @@ class _CalculatorState extends State<Calculator> {
                                 children: [
                                   Expanded(
                                       flex:1,
-                                      child: buildModalBottomTextButton("^")),
+                                      child: TextButton(
+                                          child: Text(
+                                            "^",
+                                            style: TextStyle(
+                                                fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              option = "^";
+                                              // if(userInput=="0"){
+                                              //   userInput="sqrt(";
+                                              // }
+                                              if (userInput.contains("-") ||
+                                                  userInput.contains("+") ||
+                                                  userInput.contains("*") ||
+                                                  userInput.contains("/") ||
+                                                  userInput.contains("%") ||
+                                                  userInput.contains("sqrt(") ||
+                                                  userInput.contains("sin(") ||
+                                                  userInput.contains("cos(") ||
+                                                  userInput.contains("tan(") ||
+                                                  userInput.contains("log(") ||
+                                                  userInput.contains("^")
+                                              ) {
+                                                print("contains ^");
+                                                index = userInput.length;
+                                                if (second == 0) {
+                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                                  // answer = answer + sum;
+                                                  print("second ^ is $second");
+                                                  userInput = userInput +'^';
+                                                  index = userInput.length;
+                                                } else {
+                                                  third = pow(first, second);
+                                                  first =third.toDouble();
+                                                  userInput =  userInput +'^';
+                                                  index = userInput.length;
+                                                  print("first ^ is $first");
+                                                  second = 0;
+                                                }
+                                              } else {
+                                                first = double.parse(userInput);
+                                                // sum = int.parse(userInput);
+                                                // answer = answer + sum;
+                                                print("first ^ is $first");
+                                                userInput = userInput +'^' ;
+                                                index = userInput.length;
+                                              }
+                                              if (second == 0) {
+                                                answer = 0;
+                                              } else {
+                                                third = pow(first, second);
+                                                answer_double =third.toDouble();
+                                              }
+
+                                              second = 0;
+                                              print("second multiple is $second");
+                                              print("answer multiple is $answer_double");
+                                              print("index multiple is $index");
+                                            });
+                                          }),),
                                   Expanded(
                                       flex: 1,
                                       child: buildModalBottomTextButton("(")),
@@ -1173,6 +1341,13 @@ class _CalculatorState extends State<Calculator> {
                                               (userInput.length -
                                                   index)));
                                         }
+                                        else if(userInput.contains("!(0")) {
+                                          userInput="!("+value_button;
+                                          first = double.parse(userInput
+                                              .substring(userInput.length -
+                                              (userInput.length -
+                                                  index)));
+                                        }
                                         else if (!userInput.contains("+") &&
                                             !userInput.contains("-") &&
                                             !userInput.contains("*") &&
@@ -1183,7 +1358,9 @@ class _CalculatorState extends State<Calculator> {
                                             !userInput.contains("cos(") &&
                                             !userInput.contains("tan(") &&
                                             !userInput.contains("log(") &&
-                                            !userInput.contains("ln(")) {
+                                            !userInput.contains("ln(") &&
+                                            !userInput.contains("!(") &&
+                                            !userInput.contains("^")) {
                                           userInput = userInput + value_button;
                                           // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                           print("second is $second");
