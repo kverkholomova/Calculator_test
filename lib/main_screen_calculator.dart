@@ -90,6 +90,8 @@ class _CalculatorState extends State<Calculator> {
                               userInput = userInput.substring(
                                   0, userInput.length - 1);
                               if (userInput == '') {
+                                first = 0;
+                                second = 0;
                                 userInput='0';
                                 answer = 0;
                               } else {}
@@ -123,7 +125,14 @@ class _CalculatorState extends State<Calculator> {
                                   userInput.contains("*") ||
                                   userInput.contains("/") ||
                                   userInput.contains("%") ||
-                                  userInput.contains("sqrt(")) {
+                                  userInput.contains("sqrt(") ||
+                                  userInput.contains("sin(") ||
+                                  userInput.contains("cos(") ||
+                                  userInput.contains("tan(") ||
+                                  userInput.contains("log(") ||
+                                  userInput.contains("ln(") ||
+                                  userInput.contains("!(") ||
+                                  userInput.contains("^")) {
                                 print("contains /");
                                 if (second == 0) {
                                   // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
@@ -175,7 +184,14 @@ class _CalculatorState extends State<Calculator> {
                                   userInput.contains("*") ||
                                   userInput.contains("/") ||
                                   userInput.contains("%") ||
-                                  userInput.contains("sqrt(")) {
+                                  userInput.contains("sqrt(") ||
+                                  userInput.contains("sin(") ||
+                                  userInput.contains("cos(") ||
+                                  userInput.contains("tan(") ||
+                                  userInput.contains("log(") ||
+                                  userInput.contains("ln(") ||
+                                  userInput.contains("!(") ||
+                                  userInput.contains("^")) {
                                 print("contains *");
                                 if (second == 0) {
                                   // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
@@ -222,12 +238,19 @@ class _CalculatorState extends State<Calculator> {
                           onPressed: () {
                             setState(() {
                               option = "+";
-                              if (userInput.contains("+") ||
-                                  userInput.contains("-") ||
+                              if (userInput.contains("-") ||
+                                  userInput.contains("+") ||
                                   userInput.contains("*") ||
                                   userInput.contains("/") ||
                                   userInput.contains("%") ||
-                                  userInput.contains("sqrt(")) {
+                                  userInput.contains("sqrt(") ||
+                                  userInput.contains("sin(") ||
+                                  userInput.contains("cos(") ||
+                                  userInput.contains("tan(") ||
+                                  userInput.contains("log(") ||
+                                  userInput.contains("ln(") ||
+                                  userInput.contains("!(") ||
+                                  userInput.contains("^")) {
                                 print("contains +");
                                 if (second == 0) {
                                   // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
@@ -274,7 +297,14 @@ class _CalculatorState extends State<Calculator> {
                                   userInput.contains("*") ||
                                   userInput.contains("/") ||
                                   userInput.contains("%") ||
-                                  userInput.contains("sqrt(")) {
+                                  userInput.contains("sqrt(") ||
+                                  userInput.contains("sin(") ||
+                                  userInput.contains("cos(") ||
+                                  userInput.contains("tan(") ||
+                                  userInput.contains("log(") ||
+                                  userInput.contains("ln(") ||
+                                  userInput.contains("!(") ||
+                                  userInput.contains("^")) {
                                 print("contains -");
                                 if (second == 0) {
                                   // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
@@ -662,8 +692,16 @@ class _CalculatorState extends State<Calculator> {
                                                 if (userInput.contains("-") ||
                                                     userInput.contains("+") ||
                                                     userInput.contains("*") ||
-                                                    userInput.contains("/")||
-                                                    userInput.contains("%")) {
+                                                    userInput.contains("/") ||
+                                                    userInput.contains("%") ||
+                                                    userInput.contains("sqrt(") ||
+                                                    userInput.contains("sin(") ||
+                                                    userInput.contains("cos(") ||
+                                                    userInput.contains("tan(") ||
+                                                    userInput.contains("log(") ||
+                                                    userInput.contains("ln(") ||
+                                                    userInput.contains("!(") ||
+                                                    userInput.contains("^")) {
                                                   print("contains %");
                                                   if (second == 0) {
                                                     // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
@@ -717,7 +755,14 @@ class _CalculatorState extends State<Calculator> {
                                                     userInput.contains("*") ||
                                                     userInput.contains("/") ||
                                                     userInput.contains("%") ||
-                                                    userInput.contains("sqrt(")) {
+                                                    userInput.contains("sqrt(") ||
+                                                    userInput.contains("sin(") ||
+                                                    userInput.contains("cos(") ||
+                                                    userInput.contains("tan(") ||
+                                                    userInput.contains("log(") ||
+                                                    userInput.contains("ln(") ||
+                                                    userInput.contains("!(") ||
+                                                    userInput.contains("^")) {
                                                   print("contains sqrt");
                                                   index = userInput.length-1;
                                                   if (second == 0) {
@@ -777,7 +822,13 @@ class _CalculatorState extends State<Calculator> {
                                                   userInput.contains("/") ||
                                                   userInput.contains("%") ||
                                                   userInput.contains("sqrt(") ||
-                                                  userInput.contains("sin(")
+                                                  userInput.contains("sin(") ||
+                                                  userInput.contains("cos(") ||
+                                                  userInput.contains("tan(") ||
+                                                  userInput.contains("log(") ||
+                                                  userInput.contains("ln(") ||
+                                                  userInput.contains("!(") ||
+                                                  userInput.contains("^")
                                               ) {
                                                 print("contains sin");
                                                 index = userInput.length-1;
@@ -835,7 +886,12 @@ class _CalculatorState extends State<Calculator> {
                                                   userInput.contains("%") ||
                                                   userInput.contains("sqrt(") ||
                                                   userInput.contains("sin(") ||
-                                                  userInput.contains("cos(")
+                                                  userInput.contains("cos(") ||
+                                                  userInput.contains("tan(") ||
+                                                  userInput.contains("log(") ||
+                                                  userInput.contains("ln(") ||
+                                                  userInput.contains("!(") ||
+                                                  userInput.contains("^")
                                               ) {
                                                 print("contains cos");
                                                 index = userInput.length-1;
@@ -894,7 +950,11 @@ class _CalculatorState extends State<Calculator> {
                                                   userInput.contains("sqrt(") ||
                                                   userInput.contains("sin(") ||
                                                   userInput.contains("cos(") ||
-                                                  userInput.contains("tan(")
+                                                  userInput.contains("tan(") ||
+                                                  userInput.contains("log(") ||
+                                                  userInput.contains("ln(") ||
+                                                  userInput.contains("!(") ||
+                                                  userInput.contains("^")
                                               ) {
                                                 print("contains tan");
                                                 index = userInput.length-1;
@@ -955,7 +1015,9 @@ class _CalculatorState extends State<Calculator> {
                                                   userInput.contains("cos(") ||
                                                   userInput.contains("tan(") ||
                                                   userInput.contains("log(") ||
-                                                  userInput.contains("ln(")
+                                                  userInput.contains("ln(") ||
+                                                  userInput.contains("!(") ||
+                                                  userInput.contains("^")
                                               ) {
                                                 print("contains ln");
                                                 index = userInput.length-1;
@@ -1019,7 +1081,10 @@ class _CalculatorState extends State<Calculator> {
                                                   userInput.contains("sin(") ||
                                                   userInput.contains("cos(") ||
                                                   userInput.contains("tan(") ||
-                                                  userInput.contains("log(")
+                                                  userInput.contains("log(") ||
+                                                  userInput.contains("ln(") ||
+                                                  userInput.contains("!(") ||
+                                                  userInput.contains("^")
                                               ) {
                                                 print("contains log");
                                                 index = userInput.length-1;
@@ -1081,7 +1146,8 @@ class _CalculatorState extends State<Calculator> {
                                                   userInput.contains("tan(") ||
                                                   userInput.contains("log(") ||
                                                   userInput.contains("ln(") ||
-                                                  userInput.contains("!(")
+                                                  userInput.contains("!(") ||
+                                                  userInput.contains("^")
                                               ) {
                                                 print("contains !");
                                                 index = userInput.length-1;
@@ -1138,7 +1204,16 @@ class _CalculatorState extends State<Calculator> {
                                               } else if (!userInput.contains("+") &&
                                                   !userInput.contains("-") &&
                                                   !userInput.contains("*") &&
-                                                  !userInput.contains("/")) {
+                                                  !userInput.contains("/") &&
+                                                  !userInput.contains("%") &&
+                                                  !userInput.contains("sqrt(") &&
+                                                  !userInput.contains("sin(") &&
+                                                  !userInput.contains("cos(") &&
+                                                  !userInput.contains("tan(") &&
+                                                  !userInput.contains("log(") &&
+                                                  !userInput.contains("ln(") &&
+                                                  !userInput.contains("!(") &&
+                                                  !userInput.contains("^")) {
                                                 userInput = userInput + pi.toString();
                                                 // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                                 print("second is $second");
@@ -1182,7 +1257,18 @@ class _CalculatorState extends State<Calculator> {
                                               } else if (!userInput.contains("+") &&
                                                   !userInput.contains("-") &&
                                                   !userInput.contains("*") &&
-                                                  !userInput.contains("/")) {
+                                                  !userInput.contains("/") &&
+                                              !userInput.contains("%") &&
+                                              !userInput.contains("sqrt(") &&
+                                              !userInput.contains("sin(") &&
+                                              !userInput.contains("cos(") &&
+                                              !userInput.contains("tan(") &&
+                                              !userInput.contains("log(") &&
+                                              !userInput.contains("ln(") &&
+                                              !userInput.contains("!(") &&
+                                              !userInput.contains("^")
+
+                                              ) {
                                                 userInput = userInput + e.toString();
                                                 // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
                                                 print("second is $second");
@@ -1254,7 +1340,7 @@ class _CalculatorState extends State<Calculator> {
                                                 answer = 0;
                                               } else {
                                                 third = pow(first, second);
-                                                answer_double =third.toDouble();
+                                                first =third.toDouble();
                                               }
 
                                               second = 0;
@@ -1343,6 +1429,13 @@ class _CalculatorState extends State<Calculator> {
                                         }
                                         else if(userInput.contains("!(0")) {
                                           userInput="!("+value_button;
+                                          first = double.parse(userInput
+                                              .substring(userInput.length -
+                                              (userInput.length -
+                                                  index)));
+                                        }
+                                        else if(userInput.contains("0^") || userInput.contains("^0")) {
+                                          userInput="Wrong data";
                                           first = double.parse(userInput
                                               .substring(userInput.length -
                                               (userInput.length -
