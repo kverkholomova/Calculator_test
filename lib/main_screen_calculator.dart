@@ -857,7 +857,7 @@ class _CalculatorState extends State<Calculator> {
                     ]),
               ),
               Positioned(
-                top: moveInput?MediaQuery.of(context).size.height*0.28:MediaQuery.of(context).size.height*0.5,
+                top: moveInput?MediaQuery.of(context).size.height*0.28:MediaQuery.of(context).size.height*0.45,
                 height: moveInput?MediaQuery.of(context).size.height*0.38:MediaQuery.of(context).size.height*0.5,
                 child: Container(
                   child: Column(
@@ -1140,9 +1140,9 @@ class _CalculatorState extends State<Calculator> {
                 ),
               ),
               Positioned(
-                top: moveInput?MediaQuery.of(context).size.height*0.285:MediaQuery.of(context).size.height*0.47,
+                top: moveInput?MediaQuery.of(context).size.height*0.285:MediaQuery.of(context).size.height*0.45,
                 left: MediaQuery.of(context).size.height*0.1,
-                height: moveInput?MediaQuery.of(context).size.height*0.38:MediaQuery.of(context).size.height*0.5,
+                height: moveInput?MediaQuery.of(context).size.height*0.38:MediaQuery.of(context).size.height*0.51,
 
                 // bottom: 30,
                 child: Container(
