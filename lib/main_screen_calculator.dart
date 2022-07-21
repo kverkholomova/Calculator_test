@@ -806,15 +806,15 @@ class _CalculatorState extends State<Calculator> {
         child: Stack(
           children: [
             Positioned(
-              top:moveInput?50:150,
-              left: 250,
+              top:moveInput?MediaQuery.of(context).size.height*0.08:MediaQuery.of(context).size.height*0.2,
+              left: MediaQuery.of(context).size.height*0.38,
               child: Column(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
 
-                      padding: const EdgeInsets.all(20),
-                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.only(bottom: 20, left: 25 ),
+                      alignment: Alignment.bottomRight,
                       child: FittedBox(
                         child: Text(
                           userInput,
@@ -825,7 +825,7 @@ class _CalculatorState extends State<Calculator> {
                     Container(
 
                       padding: const EdgeInsets.all(15),
-                      alignment: Alignment.centerRight,
+                      alignment: Alignment.bottomRight,
                       child: FittedBox(
                         child: Text(
                           "$answer",
@@ -839,15 +839,20 @@ class _CalculatorState extends State<Calculator> {
                   ]),
             ),
             Positioned(
-              top: moveInput?180:300,
-              height: moveInput?250:320,
+              top: moveInput?MediaQuery.of(context).size.height*0.28:MediaQuery.of(context).size.height*0.5,
+              height: moveInput?MediaQuery.of(context).size.height*0.38:MediaQuery.of(context).size.height*0.5,
               child: Container(
                 child: Column(
                   children: [
                     Expanded(
                       flex: 1,
-                      child: IconButton(
-                        icon: Icon(Icons.delete_forever_rounded, color: Colors.white70,),
+                      child:
+                      TextButton(
+                        child: const Text(
+                          "C",
+                          style: kButtonTextSide,
+                        ),
+
                         onPressed: () {
                           setState(() {
 
@@ -871,11 +876,8 @@ class _CalculatorState extends State<Calculator> {
                     ),
                     Expanded(
                       flex: 1,
-                      child: TextButton(
-                          child: const Text(
-                            "C",
-                            style: kButtonTextSide,
-                          ),
+                      child: IconButton(
+                        icon: Icon(Icons.highlight_remove_outlined, color: Colors.white70,),
                           onPressed: () {
                             setState(() {
                               userInput = userInput.substring(
@@ -1120,9 +1122,9 @@ class _CalculatorState extends State<Calculator> {
               ),
             ),
             Positioned(
-              top: moveInput?180:300,
-              left: 70,
-              height: moveInput?260:350,
+              top: moveInput?MediaQuery.of(context).size.height*0.285:MediaQuery.of(context).size.height*0.47,
+              left: MediaQuery.of(context).size.height*0.1,
+              height: moveInput?MediaQuery.of(context).size.height*0.38:MediaQuery.of(context).size.height*0.5,
 
               // bottom: 30,
               child: Container(
