@@ -72,6 +72,7 @@ class _CalculatorState extends State<Calculator> {
 
   final scaffoldState = GlobalKey<ScaffoldState>();
 
+  double moveInput =150;
   void _showSheet() {
     // Show BottomSheet here using the Scaffold state instead ot«f the Scaffold context
     scaffoldState.currentState
@@ -777,7 +778,7 @@ class _CalculatorState extends State<Calculator> {
             Container(
               color: Colors.red,
               child: Padding(
-                padding: const EdgeInsets.only(top: 150),
+                padding: EdgeInsets.only(top: moveInput),
                 child: Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -813,6 +814,31 @@ class _CalculatorState extends State<Calculator> {
                   padding: const EdgeInsets.only(top: 310, left: 8, bottom: 30),
                   child: Column(
                     children: [
+                      Expanded(
+                        flex: 1,
+                        child: IconButton(
+                          icon: Icon(Icons.delete_forever_rounded, color: Colors.white70,),
+                          onPressed: () {
+                            setState(() {
+
+                                first = 0;
+                                second = 0;
+                                userInput='0';
+                                answer = 0;
+
+
+                              // else{
+                              //   userInput= userInput.substring(0,userInput.length-1);
+                              // }
+                            });
+                          },
+                          // onLongPress: (){
+                          //       userInput = '0';
+                          //       print(userInput);
+                          //       answer=0;
+                          // },
+                        ),
+                      ),
                       Expanded(
                         flex: 1,
                         child: TextButton(
@@ -1353,6 +1379,7 @@ class _CalculatorState extends State<Calculator> {
                     color: Colors.white,
                   ),
                   onPressed: () {
+                    
                     _showSheet();
                     // showModalBottomSheet(
                     //   enableDrag: true,

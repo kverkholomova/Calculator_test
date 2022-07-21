@@ -6,4 +6,4 @@ const TextStyle kButtonText =  TextStyle(
     color: Colors.black45);
 
 const TextStyle kButtonTextSide = TextStyle(
-    fontSize: 45, color: Colors.white70);
+    fontSize: 30, color: Colors.white70);
