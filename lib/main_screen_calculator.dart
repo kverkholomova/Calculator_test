@@ -840,7 +840,7 @@ class _CalculatorState extends State<Calculator> {
             ),
             Positioned(
               top: moveInput?180:300,
-              height: moveInput?270:320,
+              height: moveInput?250:320,
               child: Container(
                 child: Column(
                   children: [
@@ -1122,7 +1122,7 @@ class _CalculatorState extends State<Calculator> {
             Positioned(
               top: moveInput?180:300,
               left: 70,
-              height: moveInput?290:350,
+              height: moveInput?260:350,
 
               // bottom: 30,
               child: Container(
