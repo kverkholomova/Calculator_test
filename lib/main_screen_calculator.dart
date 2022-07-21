@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:math';
 
 import 'package:calculator_test/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 double logBase(num x, num base) => log(x) / log(base);
 const double pi = 3.1415926535897932;
@@ -66,1292 +67,1993 @@ class _CalculatorState extends State<Calculator> {
         userInput.contains("ln(") ||
         userInput.contains("!(") ||
         userInput.contains("^");
-    print(isOkSideButton);
+
+  }
+
+  final scaffoldState = GlobalKey<ScaffoldState>();
+
+  void _showSheet() {
+    // Show BottomSheet here using the Scaffold state instead ot«f the Scaffold context
+    scaffoldState.currentState
+        ?.showBottomSheet(
+
+            (context) => Padding(
+      padding: EdgeInsets.only(
+          // top: 20,  right: 20,  left: 20,
+          bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Container(
+        color: Colors.black,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                    flex:1,
+                    child: buildModalBottomTextButton("INV")),
+                Expanded(
+                    flex: 1,
+                    child: buildModalBottomTextButton("RAD")),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                      child: const Text(
+                        "%",
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          option = "%";
+                          if (userInput.contains("-") ||
+                              userInput.contains("+") ||
+                              userInput.contains("*") ||
+                              userInput.contains("/") ||
+                              userInput.contains("%") ||
+                              userInput.contains("sqrt(") ||
+                              userInput.contains("sin(") ||
+                              userInput.contains("cos(") ||
+                              userInput.contains("tan(") ||
+                              userInput.contains("log(") ||
+                              userInput.contains("ln(") ||
+                              userInput.contains("!(") ||
+                              userInput.contains("^")) {
+
+                            if (second == 0) {
+                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                              // answer = answer + sum;
+
+                              userInput = userInput + '%';
+                              index = userInput.length;
+                            } else {
+                              first = first * second/100;
+                              userInput = userInput + '%';
+                              index = userInput.length;
+
+                              second = 0;
+                            }
+                          } else {
+                            first = double.parse(userInput);
+                            // sum = int.parse(userInput);
+                            // answer = answer + sum;
+
+                            userInput = userInput + '%';
+                            index = userInput.length;
+                          }
+                          if (second == 0) {
+                            answer = 0;
+                          } else {
+                            answerDouble = first * second/100;
+                          }
+
+                          second = 0;
+
+                        });
+                      }),),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                      child: const Text(
+                        "sqrt",
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          option = "sqrt(";
+                          // if(userInput=="0"){
+                          //   userInput="sqrt(";
+                          // }
+                          if (userInput.contains("-") ||
+                              userInput.contains("+") ||
+                              userInput.contains("*") ||
+                              userInput.contains("/") ||
+                              userInput.contains("%") ||
+                              userInput.contains("sqrt(") ||
+                              userInput.contains("sin(") ||
+                              userInput.contains("cos(") ||
+                              userInput.contains("tan(") ||
+                              userInput.contains("log(") ||
+                              userInput.contains("ln(") ||
+                              userInput.contains("!(") ||
+                              userInput.contains("^")) {
+
+                            index = userInput.length-1;
+                            if (second == 0) {
+                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                              // answer = answer + sum;
+
+                              userInput =  'sqrt(' + userInput ;
+                              index = userInput.length-1;
+                            } else {
+                              first = sqrt(first);
+                              userInput =  'sqrt('+ userInput ;
+                              index = userInput.length;
+
+                              second = 0;
+                            }
+                          } else {
+                            first = double.parse(userInput);
+                            // sum = int.parse(userInput);
+                            // answer = answer + sum;
+
+                            userInput = 'sqrt('+userInput  ;
+                            index = userInput.length-1;
+                          }
+                          if (second == 0) {
+                            answer = 0;
+                          } else {
+                            answerDouble = sqrt(first);
+                          }
+
+                          second = 0;
+
+                        });
+                      }),),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex:1,
+                  child: TextButton(
+                      child: const Text(
+                        "sin",
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          option = "sin(";
+                          // if(userInput=="0"){
+                          //   userInput="sqrt(";
+                          // }
+                          if (userInput.contains("-") ||
+                              userInput.contains("+") ||
+                              userInput.contains("*") ||
+                              userInput.contains("/") ||
+                              userInput.contains("%") ||
+                              userInput.contains("sqrt(") ||
+                              userInput.contains("sin(") ||
+                              userInput.contains("cos(") ||
+                              userInput.contains("tan(") ||
+                              userInput.contains("log(") ||
+                              userInput.contains("ln(") ||
+                              userInput.contains("!(") ||
+                              userInput.contains("^")
+                          ) {
+
+                            index = userInput.length-1;
+                            if (second == 0) {
+                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                              // answer = answer + sum;
+
+                              userInput =  'sin(' + userInput ;
+                              index = userInput.length-1;
+                            } else {
+                              first = sin(first);
+                              userInput =  'sin('+ userInput ;
+                              index = userInput.length;
+
+                              second = 0;
+                            }
+                          } else {
+                            first = double.parse(userInput);
+                            // sum = int.parse(userInput);
+                            // answer = answer + sum;
+
+                            userInput = 'sin('+userInput  ;
+                            index = userInput.length-1;
+                          }
+                          if (second == 0) {
+                            answer = 0;
+                          } else {
+                            answerDouble = sin(first);
+                          }
+
+                          second = 0;
+
+                        });
+                      }),),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                      child: const Text(
+                        "cos",
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          option = "cos(";
+                          // if(userInput=="0"){
+                          //   userInput="sqrt(";
+                          // }
+                          if (userInput.contains("-") ||
+                              userInput.contains("+") ||
+                              userInput.contains("*") ||
+                              userInput.contains("/") ||
+                              userInput.contains("%") ||
+                              userInput.contains("sqrt(") ||
+                              userInput.contains("sin(") ||
+                              userInput.contains("cos(") ||
+                              userInput.contains("tan(") ||
+                              userInput.contains("log(") ||
+                              userInput.contains("ln(") ||
+                              userInput.contains("!(") ||
+                              userInput.contains("^")
+                          ) {
+
+                            index = userInput.length-1;
+                            if (second == 0) {
+                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                              // answer = answer + sum;
+
+                              userInput =  'cos(' + userInput ;
+                              index = userInput.length-1;
+                            } else {
+                              first = cos(first);
+                              userInput =  'cos('+ userInput ;
+                              index = userInput.length;
+
+                              second = 0;
+                            }
+                          } else {
+                            first = double.parse(userInput);
+                            // sum = int.parse(userInput);
+                            // answer = answer + sum;
+
+                            userInput = 'cos('+userInput  ;
+                            index = userInput.length-1;
+                          }
+                          if (second == 0) {
+                            answer = 0;
+                          } else {
+                            answerDouble = cos(first);
+                          }
+
+                          second = 0;
+
+                        });
+                      }),),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                      child: const Text(
+                        "tan",
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          option = "tan(";
+                          // if(userInput=="0"){
+                          //   userInput="sqrt(";
+                          // }
+                          if (userInput.contains("-") ||
+                              userInput.contains("+") ||
+                              userInput.contains("*") ||
+                              userInput.contains("/") ||
+                              userInput.contains("%") ||
+                              userInput.contains("sqrt(") ||
+                              userInput.contains("sin(") ||
+                              userInput.contains("cos(") ||
+                              userInput.contains("tan(") ||
+                              userInput.contains("log(") ||
+                              userInput.contains("ln(") ||
+                              userInput.contains("!(") ||
+                              userInput.contains("^")
+                          ) {
+
+                            index = userInput.length-1;
+                            if (second == 0) {
+                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                              // answer = answer + sum;
+
+                              userInput =  'tan(' + userInput ;
+                              index = userInput.length-1;
+                            } else {
+                              first = tan(first);
+                              userInput =  'tan('+ userInput ;
+                              index = userInput.length;
+
+                              second = 0;
+                            }
+                          } else {
+                            first = double.parse(userInput);
+                            // sum = int.parse(userInput);
+                            // answer = answer + sum;
+
+                            userInput = 'tan('+userInput  ;
+                            index = userInput.length-1;
+                          }
+                          if (second == 0) {
+                            answer = 0;
+                          } else {
+                            answerDouble = tan(first);
+                          }
+
+                          second = 0;
+
+                        });
+                      }),),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                      child: const Text(
+                        "ln",
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          option = "ln(";
+                          // if(userInput=="0"){
+                          //   userInput="sqrt(";
+                          // }
+                          if (userInput.contains("-") ||
+                              userInput.contains("+") ||
+                              userInput.contains("*") ||
+                              userInput.contains("/") ||
+                              userInput.contains("%") ||
+                              userInput.contains("sqrt(") ||
+                              userInput.contains("sin(") ||
+                              userInput.contains("cos(") ||
+                              userInput.contains("tan(") ||
+                              userInput.contains("log(") ||
+                              userInput.contains("ln(") ||
+                              userInput.contains("!(") ||
+                              userInput.contains("^")
+                          ) {
+
+                            index = userInput.length-1;
+                            if (second == 0) {
+                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                              // answer = answer + sum;
+
+                              userInput =  'ln(' + userInput ;
+                              index = userInput.length-1;
+                            } else {
+                              first = logBase(first, eConst);
+                              userInput =  'ln('+ userInput ;
+                              index = userInput.length;
+
+                              second = 0;
+                            }
+                          } else {
+                            first = double.parse(userInput);
+                            // sum = int.parse(userInput);
+                            // answer = answer + sum;
+
+                            userInput = 'ln('+userInput  ;
+                            index = userInput.length-1;
+                          }
+                          if (second == 0) {
+                            answer = 0;
+                          } else {
+                            answerDouble = logBase(first, eConst);
+                          }
+
+                          second = 0;
+
+                        });
+                      }),),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex:1,
+                  child: TextButton(
+                      child: const Text(
+                        "log",
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          option = "log(";
+                          // if(userInput=="0"){
+                          //   userInput="sqrt(";
+                          // }
+                          if (userInput.contains("-") ||
+                              userInput.contains("+") ||
+                              userInput.contains("*") ||
+                              userInput.contains("/") ||
+                              userInput.contains("%") ||
+                              userInput.contains("sqrt(") ||
+                              userInput.contains("sin(") ||
+                              userInput.contains("cos(") ||
+                              userInput.contains("tan(") ||
+                              userInput.contains("log(") ||
+                              userInput.contains("ln(") ||
+                              userInput.contains("!(") ||
+                              userInput.contains("^")
+                          ) {
+
+                            index = userInput.length-1;
+                            if (second == 0) {
+                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                              // answer = answer + sum;
+
+                              userInput =  'log(' + userInput ;
+                              index = userInput.length-1;
+                            } else {
+                              first = logBase(first, 10);
+                              userInput =  'log('+ userInput ;
+                              index = userInput.length;
+
+                              second = 0;
+                            }
+                          } else {
+                            first = double.parse(userInput);
+                            // sum = int.parse(userInput);
+                            // answer = answer + sum;
+
+                            userInput = 'log('+userInput  ;
+                            index = userInput.length-1;
+                          }
+                          if (second == 0) {
+                            answer = 0;
+                          } else {
+                            answerDouble = logBase(first, 10);
+                          }
+
+                          second = 0;
+
+                        });
+                      }),),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                      child: const Text(
+                        "!",
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          option = "!(";
+                          // if(userInput=="0"){
+                          //   userInput="sqrt(";
+                          // }
+                          if (userInput.contains("-") ||
+                              userInput.contains("+") ||
+                              userInput.contains("*") ||
+                              userInput.contains("/") ||
+                              userInput.contains("%") ||
+                              userInput.contains("sqrt(") ||
+                              userInput.contains("sin(") ||
+                              userInput.contains("cos(") ||
+                              userInput.contains("tan(") ||
+                              userInput.contains("log(") ||
+                              userInput.contains("ln(") ||
+                              userInput.contains("!(") ||
+                              userInput.contains("^")
+                          ) {
+
+                            index = userInput.length-1;
+                            if (second == 0) {
+                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                              // answer = answer + sum;
+
+                              userInput =  '!(' + userInput ;
+                              index = userInput.length-1;
+                            } else {
+                              answerInt = factorial(first.toInt());
+                              first = answerInt.toDouble();
+                              // first = factorial(first.toInt());
+                              userInput =  '!('+ userInput ;
+                              index = userInput.length;
+
+                              second = 0;
+                            }
+                          } else {
+                            first = double.parse(userInput);
+                            // sum = int.parse(userInput);
+                            // answer = answer + sum;
+
+                            userInput = '!('+userInput  ;
+                            index = userInput.length-1;
+                          }
+                          if (second == 0) {
+                            answer = 0;
+                          } else {
+                            answerInt = factorial(first.toInt());
+                            first = answerInt.toDouble();
+                            // answer_double = factorial(first.toInt()) ;
+                          }
+
+                          second = 0;
+
+                        });
+                      }),),
+                Expanded(
+                    flex: 1,
+                    child: TextButton(
+                        child: const Text(
+                          "Pi",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            if (userInput == '0') {
+                              userInput = pi.toString();
+                            } else if (!userInput.contains("+") &&
+                                !userInput.contains("-") &&
+                                !userInput.contains("*") &&
+                                !userInput.contains("/") &&
+                                !userInput.contains("%") &&
+                                !userInput.contains("sqrt(") &&
+                                !userInput.contains("sin(") &&
+                                !userInput.contains("cos(") &&
+                                !userInput.contains("tan(") &&
+                                !userInput.contains("log(") &&
+                                !userInput.contains("ln(") &&
+                                !userInput.contains("!(") &&
+                                !userInput.contains("^")) {
+                              userInput = userInput + pi.toString();
+                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+
+                            } else {
+                              userInput = userInput + pi.toString();
+                              second = double.parse(userInput
+                                  .substring(userInput.length -
+                                  (userInput.length -
+                                      index)));
+
+                            }
+                          });
+                        })),
+                Expanded(
+                    flex: 1,
+                    child: TextButton(
+                        child: const Text(
+                          "e",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            if(userInput.contains("log(0")) {
+                              userInput="log("+eConst.toString();
+                              first = double.parse(userInput
+                                  .substring(userInput.length -
+                                  (userInput.length -
+                                      index)));
+                            }
+                            // else if(userInput.contains("ln(0")) {
+                            //   userInput="ln("+e_const.toString();
+                            //   first = double.parse(userInput
+                            //       .substring(userInput.length -
+                            //       (userInput.length -
+                            //           index)));
+                            // }
+                            if (userInput == '0') {
+                              userInput = e.toString();
+                            } else if (!userInput.contains("+") &&
+                                !userInput.contains("-") &&
+                                !userInput.contains("*") &&
+                                !userInput.contains("/") &&
+                                !userInput.contains("%") &&
+                                !userInput.contains("sqrt(") &&
+                                !userInput.contains("sin(") &&
+                                !userInput.contains("cos(") &&
+                                !userInput.contains("tan(") &&
+                                !userInput.contains("log(") &&
+                                !userInput.contains("ln(") &&
+                                !userInput.contains("!(") &&
+                                !userInput.contains("^")
+
+                            ) {
+                              userInput = userInput + e.toString();
+                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+
+                            } else {
+                              userInput = userInput + e.toString();
+                              second = double.parse(userInput
+                                  .substring(userInput.length -
+                                  (userInput.length -
+                                      index)));
+
+                            }
+                          });
+                        })),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex:1,
+                  child: TextButton(
+                      child: const Text(
+                        "^",
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.white),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          option = "^";
+                          // if(userInput=="0"){
+                          //   userInput="sqrt(";
+                          // }
+                          if (userInput.contains("-") ||
+                              userInput.contains("+") ||
+                              userInput.contains("*") ||
+                              userInput.contains("/") ||
+                              userInput.contains("%") ||
+                              userInput.contains("sqrt(") ||
+                              userInput.contains("sin(") ||
+                              userInput.contains("cos(") ||
+                              userInput.contains("tan(") ||
+                              userInput.contains("log(") ||
+                              userInput.contains("^")
+                          ) {
+
+                            index = userInput.length;
+                            if (second == 0) {
+                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                              // answer = answer + sum;
+
+                              userInput = userInput +'^';
+                              index = userInput.length;
+                            } else {
+                              third = pow(first, second);
+                              first =third.toDouble();
+                              userInput =  userInput +'^';
+                              index = userInput.length;
+
+                              second = 0;
+                            }
+                          } else {
+                            first = double.parse(userInput);
+                            // sum = int.parse(userInput);
+                            // answer = answer + sum;
+
+                            userInput = userInput +'^' ;
+                            index = userInput.length;
+                          }
+                          if (second == 0) {
+                            answer = 0;
+                          } else {
+                            third = pow(first, second);
+                            first =third.toDouble();
+                          }
+
+                          second = 0;
+
+                        });
+                      }),),
+                Expanded(
+                    flex: 1,
+                    child: buildModalBottomTextButton("(")),
+                Expanded(
+                    flex: 1,
+                    child: buildModalBottomTextButton(")")),
+                Expanded(
+                    flex: 1,
+                    child: buildModalBottomTextButton("v")),
+              ],
+            )
+          ],
+        ),
+      ),
+    )
+    );
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldState,
       // backgroundColor: Colors.red,
-      body: Stack(
-        children: [
-          Container(
-            color: Colors.red,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 150),
-              child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      alignment: Alignment.centerRight,
-                      child: FittedBox(
-                        child: Text(
-                          userInput,
-                          style: const TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(15),
-                      alignment: Alignment.centerRight,
-                      child: FittedBox(
-                        child: Text(
-                          "$answer",
-                          style: const TextStyle(
-                              fontSize: 30,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    )
-                  ]),
-            ),
-          ),
-          Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 310, left: 8, bottom: 30),
+      body: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Stack(
+          children: [
+            Container(
+              color: Colors.red,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 150),
                 child: Column(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: TextButton(
-                          child: const Text(
-                            "C",
-                            style: kButtonTextSide,
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        alignment: Alignment.centerRight,
+                        child: FittedBox(
+                          child: Text(
+                            userInput,
+                            style: const TextStyle(fontSize: 18, color: Colors.white),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              userInput = userInput.substring(
-                                  0, userInput.length - 1);
-                              if (userInput == '') {
-                                first = 0;
-                                second = 0;
-                                userInput='0';
-                                answer = 0;
-                              } else {}
-
-                              // else{
-                              //   userInput= userInput.substring(0,userInput.length-1);
-                              // }
-                            });
-                          },
-                      // onLongPress: (){
-                      //       userInput = '0';
-                      //       print(userInput);
-                      //       answer=0;
-                      // },
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: TextButton(
-                          child: const Text(
-                            "/",
-                            style: kButtonTextSide
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        alignment: Alignment.centerRight,
+                        child: FittedBox(
+                          child: Text(
+                            "$answer",
+                            style: const TextStyle(
+                                fontSize: 30,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              option = "/";
-                              if (userInput.contains("-") ||
-                                  userInput.contains("+") ||
-                                  userInput.contains("*") ||
-                                  userInput.contains("/") ||
-                                  userInput.contains("%") ||
-                                  userInput.contains("sqrt(") ||
-                                  userInput.contains("sin(") ||
-                                  userInput.contains("cos(") ||
-                                  userInput.contains("tan(") ||
-                                  userInput.contains("log(") ||
-                                  userInput.contains("ln(") ||
-                                  userInput.contains("!(") ||
-                                  userInput.contains("^")) {
-
-                                if (second == 0) {
-                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                  // answer = answer + sum;
-
-                                  userInput = userInput + '/';
-                                  index = userInput.length;
-                                } else {
-                                  first = first / second;
-                                  userInput = userInput + '/';
-                                  index = userInput.length;
-
-                                  second = 0;
-                                }
-                              } else {
-                                first = double.parse(userInput);
-                                // sum = int.parse(userInput);
-                                // answer = answer + sum;
-
-                                userInput = userInput + '/';
-                                index = userInput.length;
-                              }
-                              if (second == 0) {
-                                answer = 0;
-                              } else {
-                                answerDouble = first / second;
-                              }
-
-                              second = 0;
-
-                            });
-                          }),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: TextButton(
-                          child: const Text(
-                            "*",
-                            style: kButtonTextSide
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              option = "*";
-                              if (userInput.contains("-") ||
-                                  userInput.contains("+") ||
-                                  userInput.contains("*") ||
-                                  userInput.contains("/") ||
-                                  userInput.contains("%") ||
-                                  userInput.contains("sqrt(") ||
-                                  userInput.contains("sin(") ||
-                                  userInput.contains("cos(") ||
-                                  userInput.contains("tan(") ||
-                                  userInput.contains("log(") ||
-                                  userInput.contains("ln(") ||
-                                  userInput.contains("!(") ||
-                                  userInput.contains("^")) {
-
-                                if (second == 0) {
-                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                  // answer = answer + sum;
-
-                                  userInput = userInput + '*';
-                                  index = userInput.length;
-                                } else {
-                                  first = first * second;
-                                  userInput = userInput + '*';
-                                  index = userInput.length;
-
-                                  second = 0;
-                                }
-                              } else {
-                                first = double.parse(userInput);
-                                // sum = int.parse(userInput);
-                                // answer = answer + sum;
-
-                                userInput = userInput + '*';
-                                index = userInput.length;
-                              }
-                              if (second == 0) {
-                                answer = answer;
-                              } else {
-                                answer = first * second.toDouble();
-                              }
-
-                              second = 0;
-
-                            });
-                          }),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: TextButton(
-                          child: const Text(
-                            "+",
-                            style: kButtonTextSide
-                          ),
-                          onPressed: () {
-                            setState(() {
-
-                              option = "+";
-                              if (userInput.contains("-") ||
-                                  userInput.contains("+") ||
-                                  userInput.contains("*") ||
-                                  userInput.contains("/") ||
-                                  userInput.contains("%") ||
-                                  userInput.contains("sqrt(") ||
-                                  userInput.contains("sin(") ||
-                                  userInput.contains("cos(") ||
-                                  userInput.contains("tan(") ||
-                                  userInput.contains("log(") ||
-                                  userInput.contains("ln(") ||
-                                  userInput.contains("!(") ||
-                                  userInput.contains("^")) {
-
-                                if (second == 0) {
-                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                  // answer = answer + sum;
-
-                                  userInput = userInput + '+';
-                                  index = userInput.length;
-                                } else {
-                                  first = first + second;
-                                  userInput = userInput + '+';
-                                  index = userInput.length;
-
-                                  second = 0;
-                                }
-                              } else {
-                                first = double.parse(userInput);
-                                // sum = int.parse(userInput);
-                                // answer = answer + sum;
-
-                                userInput = userInput + '+';
-                                index = userInput.length;
-                              }
-                              answer = first + second.toDouble();
-                              second = 0;
-
-                            });
-                          }),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: TextButton(
-                          child: const Text(
-                            "-",
-                            style: kButtonTextSide
-                          ),
-                          onPressed: () {
-                            setState(() {
-
-                              option = "-";
-                              if (userInput.contains("-") ||
-                                  userInput.contains("+") ||
-                                  userInput.contains("*") ||
-                                  userInput.contains("/") ||
-                                  userInput.contains("%") ||
-                                  userInput.contains("sqrt(") ||
-                                  userInput.contains("sin(") ||
-                                  userInput.contains("cos(") ||
-                                  userInput.contains("tan(") ||
-                                  userInput.contains("log(") ||
-                                  userInput.contains("ln(") ||
-                                  userInput.contains("!(") ||
-                                  userInput.contains("^")) {
-
-                                if (second == 0) {
-                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                  // answer = answer + sum;
-
-                                  userInput = userInput + '-';
-                                  index = userInput.length;
-                                } else {
-                                  first = first - second;
-                                  userInput = userInput + '-';
-                                  index = userInput.length;
-
-                                  second = 0;
-                                }
-                              } else {
-                                first = double.parse(userInput);
-                                // sum = int.parse(userInput);
-                                // answer = answer + sum;
-
-                                userInput = userInput + '-';
-                                index = userInput.length;
-                              }
-                              answer = first - second.toDouble();
-                              second = 0;
-
-                            });
-                          }),
-                    ),
-                  ],
-                ),
+                        ),
+                      )
+                    ]),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 80, top: 300, bottom: 30),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(0),
-                        bottomLeft: Radius.circular(0),
-                        bottomRight: Radius.circular(0)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Stack(
+            ),
+            Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 310, left: 8, bottom: 30),
+                  child: Column(
                     children: [
-                      Column(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: buildTextButton("7"),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: buildTextButton("8")
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: buildTextButton("9"),
-                                )
-                              ],
+                      Expanded(
+                        flex: 1,
+                        child: TextButton(
+                            child: const Text(
+                              "C",
+                              style: kButtonTextSide,
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: buildTextButton("4"),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: buildTextButton("5"),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: buildTextButton("6"),
-                                )
-                              ],
+                            onPressed: () {
+                              setState(() {
+                                userInput = userInput.substring(
+                                    0, userInput.length - 1);
+                                if (userInput == '') {
+                                  first = 0;
+                                  second = 0;
+                                  userInput='0';
+                                  answer = 0;
+                                } else {}
+
+                                // else{
+                                //   userInput= userInput.substring(0,userInput.length-1);
+                                // }
+                              });
+                            },
+                        // onLongPress: (){
+                        //       userInput = '0';
+                        //       print(userInput);
+                        //       answer=0;
+                        // },
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: TextButton(
+                            child: const Text(
+                              "/",
+                              style: kButtonTextSide
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: buildTextButton("1"),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: buildTextButton("2"),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: buildTextButton("3"),
-                                )
-                              ],
+                            onPressed: () {
+                              setState(() {
+                                option = "/";
+                                if (userInput.contains("-") ||
+                                    userInput.contains("+") ||
+                                    userInput.contains("*") ||
+                                    userInput.contains("/") ||
+                                    userInput.contains("%") ||
+                                    userInput.contains("sqrt(") ||
+                                    userInput.contains("sin(") ||
+                                    userInput.contains("cos(") ||
+                                    userInput.contains("tan(") ||
+                                    userInput.contains("log(") ||
+                                    userInput.contains("ln(") ||
+                                    userInput.contains("!(") ||
+                                    userInput.contains("^")) {
+
+                                  if (second == 0) {
+                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                    // answer = answer + sum;
+
+                                    userInput = userInput + '/';
+                                    index = userInput.length;
+                                  } else {
+                                    first = first / second;
+                                    userInput = userInput + '/';
+                                    index = userInput.length;
+
+                                    second = 0;
+                                  }
+                                } else {
+                                  first = double.parse(userInput);
+                                  // sum = int.parse(userInput);
+                                  // answer = answer + sum;
+
+                                  userInput = userInput + '/';
+                                  index = userInput.length;
+                                }
+                                if (second == 0) {
+                                  answer = 0;
+                                } else {
+                                  answerDouble = first / second;
+                                }
+
+                                second = 0;
+
+                              });
+                            }),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: TextButton(
+                            child: const Text(
+                              "*",
+                              style: kButtonTextSide
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: TextButton(
-                                      child: const Text(
-                                        ".",
-                                        style: TextStyle(
-                                            fontSize: 45,
-                                            color: Colors.black45),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          if (userInput == '0') {
-                                            userInput = '0.';
-                                          } else if (!userInput.contains("+") &&
-                                              !userInput.contains("-") &&
-                                              !userInput.contains("*") &&
-                                              !userInput.contains("/")) {
-                                            userInput = userInput + '.';
-                                            // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                            onPressed: () {
+                              setState(() {
+                                option = "*";
+                                if (userInput.contains("-") ||
+                                    userInput.contains("+") ||
+                                    userInput.contains("*") ||
+                                    userInput.contains("/") ||
+                                    userInput.contains("%") ||
+                                    userInput.contains("sqrt(") ||
+                                    userInput.contains("sin(") ||
+                                    userInput.contains("cos(") ||
+                                    userInput.contains("tan(") ||
+                                    userInput.contains("log(") ||
+                                    userInput.contains("ln(") ||
+                                    userInput.contains("!(") ||
+                                    userInput.contains("^")) {
 
-                                          } else {
-                                            userInput = userInput + '.';
-                                            second = double.parse(userInput
-                                                .substring(userInput.length -
-                                                    (userInput.length -
-                                                        index)));
+                                  if (second == 0) {
+                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                    // answer = answer + sum;
 
-                                          }
-                                        });
-                                      }),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: buildTextButton('0'),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: TextButton(
-                                      child: const Text(
-                                        "=",
-                                        style: TextStyle(
-                                            fontSize: 45,
-                                            color: Colors.black45),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          if (option == "+") {
-                                            answer = first + second.toDouble();
-                                            second = 0;
-                                            first = answer;
-                                          } else if (option == "-") {
-                                            answer = first - second.toDouble();
-                                            second = 0;
-                                            first = answer;
-                                          } else if (option == "*") {
-                                            answer = first * second;
-                                            second = 0;
-                                            first = answer;
-                                          } else if (option == "/") {
-                                            answerDouble = first / second;
+                                    userInput = userInput + '*';
+                                    index = userInput.length;
+                                  } else {
+                                    first = first * second;
+                                    userInput = userInput + '*';
+                                    index = userInput.length;
 
-                                            answer = answerDouble;
-                                            second = 0;
-                                            first = answer;
-                                          }
-                                          else if (option == "%") {
-                                            answerDouble = first * second/100;
+                                    second = 0;
+                                  }
+                                } else {
+                                  first = double.parse(userInput);
+                                  // sum = int.parse(userInput);
+                                  // answer = answer + sum;
 
-                                            answer = answerDouble;
-                                            second = 0;
-                                            first = answer;
-                                          }
-                                          else if (option == "sqrt(") {
-                                            userInput = userInput+")";
+                                  userInput = userInput + '*';
+                                  index = userInput.length;
+                                }
+                                if (second == 0) {
+                                  answer = answer;
+                                } else {
+                                  answer = first * second.toDouble();
+                                }
 
-                                            if (userInput.length-index>2){
-                                              answerDouble = sqrt(second);
-                                            }
-                                            else {
-                                              answerDouble = sqrt(first);
-                                            }
-                                            answer = answerDouble;
-                                            second = 0;
-                                            first = answer;
-                                          }
-                                          else if (option == "sin(") {
-                                            userInput = userInput+")";
+                                second = 0;
 
-                                            if (userInput.length-index>2){
-                                              answerDouble = sin(second);
-                                            }
-                                            else {
-                                              answerDouble = sin(first);
-                                            }
-                                            answer = answerDouble;
-                                            second = 0;
-                                            first = answer;
-                                          }
-                                          else if (option == "cos(") {
-                                            userInput = userInput+")";
-
-                                            if (userInput.length-index>2){
-                                              answerDouble = cos(second);
-                                            }
-                                            else {
-                                              answerDouble = cos(first);
-                                            }
-                                            answer = answerDouble;
-                                            second = 0;
-                                            first = answer;
-                                          }
-                                          else if (option == "tan(") {
-                                            userInput = userInput+")";
-
-                                            if (userInput.length-index>2){
-                                              answerDouble = tan(second);
-                                            }
-                                            else {
-                                              answerDouble = tan(first);
-                                            }
-                                            answer = answerDouble;
-                                            second = 0;
-                                            first = answer;
-                                          }
-                                          else if (option == "log(") {
-                                            userInput = userInput+")";
-
-                                            if (userInput.length-index>2){
-                                              answerDouble = logBase(second, 10);
-                                            }
-                                            else {
-                                              answerDouble = logBase(first, 10);
-                                            }
-                                            answer = answerDouble;
-                                            second = 0;
-                                            first = answer;
-                                          }
-                                          else if (option == "ln(") {
-                                            userInput = userInput+")";
-
-                                            if (userInput.length-index>2){
-                                              answerDouble = logBase(second, eConst);
-                                            }
-                                            else {
-                                              answerDouble = logBase(first, eConst);
-                                            }
-                                            answer = answerDouble;
-                                            second = 0;
-                                            first = answer;
-                                          }
-                                          else if (option == "!(") {
-                                            userInput = userInput+")";
-
-                                            if (userInput.length-index>2){
-                                              answerInt = factorial(second.toInt());
-                                              answerDouble = answerInt.toDouble();
-                                            }
-                                            else {
-                                              answerInt = factorial(first.toInt());
-                                              answerDouble = answerInt.toDouble();
-                                            }
-                                            answer = answerDouble;
-                                            second = 0;
-                                            first = answer;
-                                          }
-                                          else if (option == "^") {
-                                            // userInput = userInput+")";
-
-                                            if (userInput.length-index>=1){
-                                              third = pow(first, second);
-                                              answerDouble =third.toDouble();
-                                            }
-                                            else {
-                                              answerDouble=0.1;
-                                            }
-                                            answer = answerDouble;
-                                            second = 0;
-                                            first = answer;
-                                          }
-                                          // answer = first + second;
-                                          // print("answer is $answer");
-                                        });
-                                      }),
-                                )
-                              ],
+                              });
+                            }),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: TextButton(
+                            child: const Text(
+                              "+",
+                              style: kButtonTextSide
                             ),
-                          )
-                        ],
+                            onPressed: () {
+                              setState(() {
+
+                                option = "+";
+                                if (userInput.contains("-") ||
+                                    userInput.contains("+") ||
+                                    userInput.contains("*") ||
+                                    userInput.contains("/") ||
+                                    userInput.contains("%") ||
+                                    userInput.contains("sqrt(") ||
+                                    userInput.contains("sin(") ||
+                                    userInput.contains("cos(") ||
+                                    userInput.contains("tan(") ||
+                                    userInput.contains("log(") ||
+                                    userInput.contains("ln(") ||
+                                    userInput.contains("!(") ||
+                                    userInput.contains("^")) {
+
+                                  if (second == 0) {
+                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                    // answer = answer + sum;
+
+                                    userInput = userInput + '+';
+                                    index = userInput.length;
+                                  } else {
+                                    first = first + second;
+                                    userInput = userInput + '+';
+                                    index = userInput.length;
+
+                                    second = 0;
+                                  }
+                                } else {
+                                  first = double.parse(userInput);
+                                  // sum = int.parse(userInput);
+                                  // answer = answer + sum;
+
+                                  userInput = userInput + '+';
+                                  index = userInput.length;
+                                }
+                                answer = first + second.toDouble();
+                                second = 0;
+
+                              });
+                            }),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: TextButton(
+                            child: const Text(
+                              "-",
+                              style: kButtonTextSide
+                            ),
+                            onPressed: () {
+                              setState(() {
+
+                                option = "-";
+                                if (userInput.contains("-") ||
+                                    userInput.contains("+") ||
+                                    userInput.contains("*") ||
+                                    userInput.contains("/") ||
+                                    userInput.contains("%") ||
+                                    userInput.contains("sqrt(") ||
+                                    userInput.contains("sin(") ||
+                                    userInput.contains("cos(") ||
+                                    userInput.contains("tan(") ||
+                                    userInput.contains("log(") ||
+                                    userInput.contains("ln(") ||
+                                    userInput.contains("!(") ||
+                                    userInput.contains("^")) {
+
+                                  if (second == 0) {
+                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                                    // answer = answer + sum;
+
+                                    userInput = userInput + '-';
+                                    index = userInput.length;
+                                  } else {
+                                    first = first - second;
+                                    userInput = userInput + '-';
+                                    index = userInput.length;
+
+                                    second = 0;
+                                  }
+                                } else {
+                                  first = double.parse(userInput);
+                                  // sum = int.parse(userInput);
+                                  // answer = answer + sum;
+
+                                  userInput = userInput + '-';
+                                  index = userInput.length;
+                                }
+                                answer = first - second.toDouble();
+                                second = 0;
+
+                              });
+                            }),
                       ),
                     ],
                   ),
                 ),
-              ),
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 30,
-              width: double.infinity,
-              color: Colors.black,
-              child: IconButton(
-                icon: const Icon(
-                  Icons.keyboard_arrow_up_rounded,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  showModalBottomSheet(
-                    enableDrag: true,
-                      // shape: const RoundedRectangleBorder(
-                      //     borderRadius:
-                      //     BorderRadius.vertical(top: Radius.circular(25.0))
-                      // ),
-                      backgroundColor: Colors.black,
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (context) => Padding(
-                        padding: EdgeInsets.only(top: 20,  right: 20,  left: 20,
-                            bottom: MediaQuery.of(context).viewInsets.bottom),
-                        child: Container(
-                          color: Colors.black,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                        flex:1,
-                                        child: buildModalBottomTextButton("INV")),
-                                    Expanded(
-                                        flex: 1,
-                                        child: buildModalBottomTextButton("RAD")),
-                                    Expanded(
-                                        flex: 1,
-                                        child: TextButton(
-                                            child: const Text(
-                                              "%",
-                                              style: TextStyle(
-                                                  fontSize: 20, color: Colors.white),
-                                            ),
-                                            onPressed: () {
-                                              setState(() {
-                                                option = "%";
-                                                if (userInput.contains("-") ||
-                                                    userInput.contains("+") ||
-                                                    userInput.contains("*") ||
-                                                    userInput.contains("/") ||
-                                                    userInput.contains("%") ||
-                                                    userInput.contains("sqrt(") ||
-                                                    userInput.contains("sin(") ||
-                                                    userInput.contains("cos(") ||
-                                                    userInput.contains("tan(") ||
-                                                    userInput.contains("log(") ||
-                                                    userInput.contains("ln(") ||
-                                                    userInput.contains("!(") ||
-                                                    userInput.contains("^")) {
-
-                                                  if (second == 0) {
-                                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                                    // answer = answer + sum;
-
-                                                    userInput = userInput + '%';
-                                                    index = userInput.length;
-                                                  } else {
-                                                    first = first * second/100;
-                                                    userInput = userInput + '%';
-                                                    index = userInput.length;
-
-                                                    second = 0;
-                                                  }
-                                                } else {
-                                                  first = double.parse(userInput);
-                                                  // sum = int.parse(userInput);
-                                                  // answer = answer + sum;
-
-                                                  userInput = userInput + '%';
-                                                  index = userInput.length;
-                                                }
-                                                if (second == 0) {
-                                                  answer = 0;
-                                                } else {
-                                                  answerDouble = first * second/100;
-                                                }
-
-                                                second = 0;
-
-                                              });
-                                            }),),
-                                    Expanded(
-                                        flex: 1,
-                                        child: TextButton(
-                                            child: const Text(
-                                              "sqrt",
-                                              style: TextStyle(
-                                                  fontSize: 20, color: Colors.white),
-                                            ),
-                                            onPressed: () {
-                                              setState(() {
-                                                option = "sqrt(";
-                                                // if(userInput=="0"){
-                                                //   userInput="sqrt(";
-                                                // }
-                                                if (userInput.contains("-") ||
-                                                    userInput.contains("+") ||
-                                                    userInput.contains("*") ||
-                                                    userInput.contains("/") ||
-                                                    userInput.contains("%") ||
-                                                    userInput.contains("sqrt(") ||
-                                                    userInput.contains("sin(") ||
-                                                    userInput.contains("cos(") ||
-                                                    userInput.contains("tan(") ||
-                                                    userInput.contains("log(") ||
-                                                    userInput.contains("ln(") ||
-                                                    userInput.contains("!(") ||
-                                                    userInput.contains("^")) {
-
-                                                  index = userInput.length-1;
-                                                  if (second == 0) {
-                                                    // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                                    // answer = answer + sum;
-
-                                                    userInput =  'sqrt(' + userInput ;
-                                                    index = userInput.length-1;
-                                                  } else {
-                                                    first = sqrt(first);
-                                                    userInput =  'sqrt('+ userInput ;
-                                                    index = userInput.length;
-
-                                                    second = 0;
-                                                  }
-                                                } else {
-                                                  first = double.parse(userInput);
-                                                  // sum = int.parse(userInput);
-                                                  // answer = answer + sum;
-
-                                                  userInput = 'sqrt('+userInput  ;
-                                                  index = userInput.length-1;
-                                                }
-                                                if (second == 0) {
-                                                  answer = 0;
-                                                } else {
-                                                  answerDouble = sqrt(first);
-                                                }
-
-                                                second = 0;
-
-                                              });
-                                            }),),
-                                  ],
-                                ),
-                              Row(
+                Padding(
+                  padding: const EdgeInsets.only(left: 80, top: 300, bottom: 30),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(0),
+                          bottomLeft: Radius.circular(0),
+                          bottomRight: Radius.circular(0)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Stack(
+                      children: [
+                        Column(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Row(
                                 children: [
                                   Expanded(
-                                      flex:1,
-                                      child: TextButton(
-                                          child: const Text(
-                                            "sin",
-                                            style: TextStyle(
-                                                fontSize: 20, color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              option = "sin(";
-                                              // if(userInput=="0"){
-                                              //   userInput="sqrt(";
-                                              // }
-                                              if (userInput.contains("-") ||
-                                                  userInput.contains("+") ||
-                                                  userInput.contains("*") ||
-                                                  userInput.contains("/") ||
-                                                  userInput.contains("%") ||
-                                                  userInput.contains("sqrt(") ||
-                                                  userInput.contains("sin(") ||
-                                                  userInput.contains("cos(") ||
-                                                  userInput.contains("tan(") ||
-                                                  userInput.contains("log(") ||
-                                                  userInput.contains("ln(") ||
-                                                  userInput.contains("!(") ||
-                                                  userInput.contains("^")
-                                              ) {
+                                    flex: 1,
+                                    child: buildTextButton("7"),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: buildTextButton("8")
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: buildTextButton("9"),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: buildTextButton("4"),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: buildTextButton("5"),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: buildTextButton("6"),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: buildTextButton("1"),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: buildTextButton("2"),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: buildTextButton("3"),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextButton(
+                                        child: const Text(
+                                          ".",
+                                          style: TextStyle(
+                                              fontSize: 45,
+                                              color: Colors.black45),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            if (userInput == '0') {
+                                              userInput = '0.';
+                                            } else if (!userInput.contains("+") &&
+                                                !userInput.contains("-") &&
+                                                !userInput.contains("*") &&
+                                                !userInput.contains("/")) {
+                                              userInput = userInput + '.';
+                                              // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
 
-                                                index = userInput.length-1;
-                                                if (second == 0) {
-                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                                  // answer = answer + sum;
+                                            } else {
+                                              userInput = userInput + '.';
+                                              second = double.parse(userInput
+                                                  .substring(userInput.length -
+                                                      (userInput.length -
+                                                          index)));
 
-                                                  userInput =  'sin(' + userInput ;
-                                                  index = userInput.length-1;
-                                                } else {
-                                                  first = sin(first);
-                                                  userInput =  'sin('+ userInput ;
-                                                  index = userInput.length;
+                                            }
+                                          });
+                                        }),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: buildTextButton('0'),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextButton(
+                                        child: const Text(
+                                          "=",
+                                          style: TextStyle(
+                                              fontSize: 45,
+                                              color: Colors.black45),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            if (option == "+") {
+                                              answer = first + second.toDouble();
+                                              second = 0;
+                                              first = answer;
+                                            } else if (option == "-") {
+                                              answer = first - second.toDouble();
+                                              second = 0;
+                                              first = answer;
+                                            } else if (option == "*") {
+                                              answer = first * second;
+                                              second = 0;
+                                              first = answer;
+                                            } else if (option == "/") {
+                                              answerDouble = first / second;
 
-                                                  second = 0;
-                                                }
-                                              } else {
-                                                first = double.parse(userInput);
-                                                // sum = int.parse(userInput);
-                                                // answer = answer + sum;
+                                              answer = answerDouble;
+                                              second = 0;
+                                              first = answer;
+                                            }
+                                            else if (option == "%") {
+                                              answerDouble = first * second/100;
 
-                                                userInput = 'sin('+userInput  ;
-                                                index = userInput.length-1;
+                                              answer = answerDouble;
+                                              second = 0;
+                                              first = answer;
+                                            }
+                                            else if (option == "sqrt(") {
+                                              userInput = userInput+")";
+
+                                              if (userInput.length-index>2){
+                                                answerDouble = sqrt(second);
                                               }
-                                              if (second == 0) {
-                                                answer = 0;
-                                              } else {
+                                              else {
+                                                answerDouble = sqrt(first);
+                                              }
+                                              answer = answerDouble;
+                                              second = 0;
+                                              first = answer;
+                                            }
+                                            else if (option == "sin(") {
+                                              userInput = userInput+")";
+
+                                              if (userInput.length-index>2){
+                                                answerDouble = sin(second);
+                                              }
+                                              else {
                                                 answerDouble = sin(first);
                                               }
-
+                                              answer = answerDouble;
                                               second = 0;
+                                              first = answer;
+                                            }
+                                            else if (option == "cos(") {
+                                              userInput = userInput+")";
 
-                                            });
-                                          }),),
-                                  Expanded(
-                                      flex: 1,
-                                      child: TextButton(
-                                          child: const Text(
-                                            "cos",
-                                            style: TextStyle(
-                                                fontSize: 20, color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              option = "cos(";
-                                              // if(userInput=="0"){
-                                              //   userInput="sqrt(";
-                                              // }
-                                              if (userInput.contains("-") ||
-                                                  userInput.contains("+") ||
-                                                  userInput.contains("*") ||
-                                                  userInput.contains("/") ||
-                                                  userInput.contains("%") ||
-                                                  userInput.contains("sqrt(") ||
-                                                  userInput.contains("sin(") ||
-                                                  userInput.contains("cos(") ||
-                                                  userInput.contains("tan(") ||
-                                                  userInput.contains("log(") ||
-                                                  userInput.contains("ln(") ||
-                                                  userInput.contains("!(") ||
-                                                  userInput.contains("^")
-                                              ) {
-
-                                                index = userInput.length-1;
-                                                if (second == 0) {
-                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                                  // answer = answer + sum;
-
-                                                  userInput =  'cos(' + userInput ;
-                                                  index = userInput.length-1;
-                                                } else {
-                                                  first = cos(first);
-                                                  userInput =  'cos('+ userInput ;
-                                                  index = userInput.length;
-
-                                                  second = 0;
-                                                }
-                                              } else {
-                                                first = double.parse(userInput);
-                                                // sum = int.parse(userInput);
-                                                // answer = answer + sum;
-
-                                                userInput = 'cos('+userInput  ;
-                                                index = userInput.length-1;
+                                              if (userInput.length-index>2){
+                                                answerDouble = cos(second);
                                               }
-                                              if (second == 0) {
-                                                answer = 0;
-                                              } else {
+                                              else {
                                                 answerDouble = cos(first);
                                               }
-
+                                              answer = answerDouble;
                                               second = 0;
+                                              first = answer;
+                                            }
+                                            else if (option == "tan(") {
+                                              userInput = userInput+")";
 
-                                            });
-                                          }),),
-                                  Expanded(
-                                      flex: 1,
-                                      child: TextButton(
-                                          child: const Text(
-                                            "tan",
-                                            style: TextStyle(
-                                                fontSize: 20, color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              option = "tan(";
-                                              // if(userInput=="0"){
-                                              //   userInput="sqrt(";
-                                              // }
-                                              if (userInput.contains("-") ||
-                                                  userInput.contains("+") ||
-                                                  userInput.contains("*") ||
-                                                  userInput.contains("/") ||
-                                                  userInput.contains("%") ||
-                                                  userInput.contains("sqrt(") ||
-                                                  userInput.contains("sin(") ||
-                                                  userInput.contains("cos(") ||
-                                                  userInput.contains("tan(") ||
-                                                  userInput.contains("log(") ||
-                                                  userInput.contains("ln(") ||
-                                                  userInput.contains("!(") ||
-                                                  userInput.contains("^")
-                                              ) {
-
-                                                index = userInput.length-1;
-                                                if (second == 0) {
-                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                                  // answer = answer + sum;
-
-                                                  userInput =  'tan(' + userInput ;
-                                                  index = userInput.length-1;
-                                                } else {
-                                                  first = tan(first);
-                                                  userInput =  'tan('+ userInput ;
-                                                  index = userInput.length;
-
-                                                  second = 0;
-                                                }
-                                              } else {
-                                                first = double.parse(userInput);
-                                                // sum = int.parse(userInput);
-                                                // answer = answer + sum;
-
-                                                userInput = 'tan('+userInput  ;
-                                                index = userInput.length-1;
+                                              if (userInput.length-index>2){
+                                                answerDouble = tan(second);
                                               }
-                                              if (second == 0) {
-                                                answer = 0;
-                                              } else {
+                                              else {
                                                 answerDouble = tan(first);
                                               }
-
+                                              answer = answerDouble;
                                               second = 0;
+                                              first = answer;
+                                            }
+                                            else if (option == "log(") {
+                                              userInput = userInput+")";
 
-                                            });
-                                          }),),
-                                  Expanded(
-                                      flex: 1,
-                                      child: TextButton(
-                                          child: const Text(
-                                            "ln",
-                                            style: TextStyle(
-                                                fontSize: 20, color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              option = "ln(";
-                                              // if(userInput=="0"){
-                                              //   userInput="sqrt(";
-                                              // }
-                                              if (userInput.contains("-") ||
-                                                  userInput.contains("+") ||
-                                                  userInput.contains("*") ||
-                                                  userInput.contains("/") ||
-                                                  userInput.contains("%") ||
-                                                  userInput.contains("sqrt(") ||
-                                                  userInput.contains("sin(") ||
-                                                  userInput.contains("cos(") ||
-                                                  userInput.contains("tan(") ||
-                                                  userInput.contains("log(") ||
-                                                  userInput.contains("ln(") ||
-                                                  userInput.contains("!(") ||
-                                                  userInput.contains("^")
-                                              ) {
-
-                                                index = userInput.length-1;
-                                                if (second == 0) {
-                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                                  // answer = answer + sum;
-
-                                                  userInput =  'ln(' + userInput ;
-                                                  index = userInput.length-1;
-                                                } else {
-                                                  first = logBase(first, eConst);
-                                                  userInput =  'ln('+ userInput ;
-                                                  index = userInput.length;
-
-                                                  second = 0;
-                                                }
-                                              } else {
-                                                first = double.parse(userInput);
-                                                // sum = int.parse(userInput);
-                                                // answer = answer + sum;
-
-                                                userInput = 'ln('+userInput  ;
-                                                index = userInput.length-1;
+                                              if (userInput.length-index>2){
+                                                answerDouble = logBase(second, 10);
                                               }
-                                              if (second == 0) {
-                                                answer = 0;
-                                              } else {
-                                                answerDouble = logBase(first, eConst);
-                                              }
-
-                                              second = 0;
-
-                                            });
-                                          }),),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      flex:1,
-                                      child: TextButton(
-                                          child: const Text(
-                                            "log",
-                                            style: TextStyle(
-                                                fontSize: 20, color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              option = "log(";
-                                              // if(userInput=="0"){
-                                              //   userInput="sqrt(";
-                                              // }
-                                              if (userInput.contains("-") ||
-                                                  userInput.contains("+") ||
-                                                  userInput.contains("*") ||
-                                                  userInput.contains("/") ||
-                                                  userInput.contains("%") ||
-                                                  userInput.contains("sqrt(") ||
-                                                  userInput.contains("sin(") ||
-                                                  userInput.contains("cos(") ||
-                                                  userInput.contains("tan(") ||
-                                                  userInput.contains("log(") ||
-                                                  userInput.contains("ln(") ||
-                                                  userInput.contains("!(") ||
-                                                  userInput.contains("^")
-                                              ) {
-
-                                                index = userInput.length-1;
-                                                if (second == 0) {
-                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                                  // answer = answer + sum;
-
-                                                  userInput =  'log(' + userInput ;
-                                                  index = userInput.length-1;
-                                                } else {
-                                                  first = logBase(first, 10);
-                                                  userInput =  'log('+ userInput ;
-                                                  index = userInput.length;
-
-                                                  second = 0;
-                                                }
-                                              } else {
-                                                first = double.parse(userInput);
-                                                // sum = int.parse(userInput);
-                                                // answer = answer + sum;
-
-                                                userInput = 'log('+userInput  ;
-                                                index = userInput.length-1;
-                                              }
-                                              if (second == 0) {
-                                                answer = 0;
-                                              } else {
+                                              else {
                                                 answerDouble = logBase(first, 10);
                                               }
-
+                                              answer = answerDouble;
                                               second = 0;
+                                              first = answer;
+                                            }
+                                            else if (option == "ln(") {
+                                              userInput = userInput+")";
 
-                                            });
-                                          }),),
-                                  Expanded(
-                                      flex: 1,
-                                      child: TextButton(
-                                          child: const Text(
-                                            "!",
-                                            style: TextStyle(
-                                                fontSize: 20, color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              option = "!(";
-                                              // if(userInput=="0"){
-                                              //   userInput="sqrt(";
-                                              // }
-                                              if (userInput.contains("-") ||
-                                                  userInput.contains("+") ||
-                                                  userInput.contains("*") ||
-                                                  userInput.contains("/") ||
-                                                  userInput.contains("%") ||
-                                                  userInput.contains("sqrt(") ||
-                                                  userInput.contains("sin(") ||
-                                                  userInput.contains("cos(") ||
-                                                  userInput.contains("tan(") ||
-                                                  userInput.contains("log(") ||
-                                                  userInput.contains("ln(") ||
-                                                  userInput.contains("!(") ||
-                                                  userInput.contains("^")
-                                              ) {
-
-                                                index = userInput.length-1;
-                                                if (second == 0) {
-                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                                  // answer = answer + sum;
-
-                                                  userInput =  '!(' + userInput ;
-                                                  index = userInput.length-1;
-                                                } else {
-                                                  answerInt = factorial(first.toInt());
-                                                  first = answerInt.toDouble();
-                                                  // first = factorial(first.toInt());
-                                                  userInput =  '!('+ userInput ;
-                                                  index = userInput.length;
-
-                                                  second = 0;
-                                                }
-                                              } else {
-                                                first = double.parse(userInput);
-                                                // sum = int.parse(userInput);
-                                                // answer = answer + sum;
-
-                                                userInput = '!('+userInput  ;
-                                                index = userInput.length-1;
+                                              if (userInput.length-index>2){
+                                                answerDouble = logBase(second, eConst);
                                               }
-                                              if (second == 0) {
-                                                answer = 0;
-                                              } else {
+                                              else {
+                                                answerDouble = logBase(first, eConst);
+                                              }
+                                              answer = answerDouble;
+                                              second = 0;
+                                              first = answer;
+                                            }
+                                            else if (option == "!(") {
+                                              userInput = userInput+")";
+
+                                              if (userInput.length-index>2){
+                                                answerInt = factorial(second.toInt());
+                                                answerDouble = answerInt.toDouble();
+                                              }
+                                              else {
                                                 answerInt = factorial(first.toInt());
-                                                first = answerInt.toDouble();
-                                                // answer_double = factorial(first.toInt()) ;
+                                                answerDouble = answerInt.toDouble();
                                               }
-
+                                              answer = answerDouble;
                                               second = 0;
+                                              first = answer;
+                                            }
+                                            else if (option == "^") {
+                                              // userInput = userInput+")";
 
-                                            });
-                                          }),),
-                                  Expanded(
-                                      flex: 1,
-                                      child: TextButton(
-                                          child: const Text(
-                                            "Pi",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              if (userInput == '0') {
-                                                userInput = pi.toString();
-                                              } else if (!userInput.contains("+") &&
-                                                  !userInput.contains("-") &&
-                                                  !userInput.contains("*") &&
-                                                  !userInput.contains("/") &&
-                                                  !userInput.contains("%") &&
-                                                  !userInput.contains("sqrt(") &&
-                                                  !userInput.contains("sin(") &&
-                                                  !userInput.contains("cos(") &&
-                                                  !userInput.contains("tan(") &&
-                                                  !userInput.contains("log(") &&
-                                                  !userInput.contains("ln(") &&
-                                                  !userInput.contains("!(") &&
-                                                  !userInput.contains("^")) {
-                                                userInput = userInput + pi.toString();
-                                                // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-
-                                              } else {
-                                                userInput = userInput + pi.toString();
-                                                second = double.parse(userInput
-                                                    .substring(userInput.length -
-                                                    (userInput.length -
-                                                        index)));
-
+                                              if (userInput.length-index>=1){
+                                                third = pow(first, second);
+                                                answerDouble =third.toDouble();
                                               }
-                                            });
-                                          })),
-                                  Expanded(
-                                      flex: 1,
-                                      child: TextButton(
-                                          child: const Text(
-                                            "e",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              if(userInput.contains("log(0")) {
-                                                userInput="log("+eConst.toString();
-                                                first = double.parse(userInput
-                                                    .substring(userInput.length -
-                                                    (userInput.length -
-                                                        index)));
+                                              else {
+                                                answerDouble=0.1;
                                               }
-                                              // else if(userInput.contains("ln(0")) {
-                                              //   userInput="ln("+e_const.toString();
-                                              //   first = double.parse(userInput
-                                              //       .substring(userInput.length -
-                                              //       (userInput.length -
-                                              //           index)));
-                                              // }
-                                              if (userInput == '0') {
-                                                userInput = e.toString();
-                                              } else if (!userInput.contains("+") &&
-                                                  !userInput.contains("-") &&
-                                                  !userInput.contains("*") &&
-                                                  !userInput.contains("/") &&
-                                              !userInput.contains("%") &&
-                                              !userInput.contains("sqrt(") &&
-                                              !userInput.contains("sin(") &&
-                                              !userInput.contains("cos(") &&
-                                              !userInput.contains("tan(") &&
-                                              !userInput.contains("log(") &&
-                                              !userInput.contains("ln(") &&
-                                              !userInput.contains("!(") &&
-                                              !userInput.contains("^")
-
-                                              ) {
-                                                userInput = userInput + e.toString();
-                                                // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-
-                                              } else {
-                                                userInput = userInput + e.toString();
-                                                second = double.parse(userInput
-                                                    .substring(userInput.length -
-                                                    (userInput.length -
-                                                        index)));
-
-                                              }
-                                            });
-                                          })),
+                                              answer = answerDouble;
+                                              second = 0;
+                                              first = answer;
+                                            }
+                                            // answer = first + second;
+                                            // print("answer is $answer");
+                                          });
+                                        }),
+                                  )
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      flex:1,
-                                      child: TextButton(
-                                          child: const Text(
-                                            "^",
-                                            style: TextStyle(
-                                                fontSize: 20, color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              option = "^";
-                                              // if(userInput=="0"){
-                                              //   userInput="sqrt(";
-                                              // }
-                                              if (userInput.contains("-") ||
-                                                  userInput.contains("+") ||
-                                                  userInput.contains("*") ||
-                                                  userInput.contains("/") ||
-                                                  userInput.contains("%") ||
-                                                  userInput.contains("sqrt(") ||
-                                                  userInput.contains("sin(") ||
-                                                  userInput.contains("cos(") ||
-                                                  userInput.contains("tan(") ||
-                                                  userInput.contains("log(") ||
-                                                  userInput.contains("^")
-                                              ) {
-
-                                                index = userInput.length;
-                                                if (second == 0) {
-                                                  // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
-                                                  // answer = answer + sum;
-
-                                                  userInput = userInput +'^';
-                                                  index = userInput.length;
-                                                } else {
-                                                  third = pow(first, second);
-                                                  first =third.toDouble();
-                                                  userInput =  userInput +'^';
-                                                  index = userInput.length;
-
-                                                  second = 0;
-                                                }
-                                              } else {
-                                                first = double.parse(userInput);
-                                                // sum = int.parse(userInput);
-                                                // answer = answer + sum;
-
-                                                userInput = userInput +'^' ;
-                                                index = userInput.length;
-                                              }
-                                              if (second == 0) {
-                                                answer = 0;
-                                              } else {
-                                                third = pow(first, second);
-                                                first =third.toDouble();
-                                              }
-
-                                              second = 0;
-
-                                            });
-                                          }),),
-                                  Expanded(
-                                      flex: 1,
-                                      child: buildModalBottomTextButton("(")),
-                                  Expanded(
-                                      flex: 1,
-                                      child: buildModalBottomTextButton(")")),
-                                  Expanded(
-                                      flex: 1,
-                                      child: buildModalBottomTextButton("v")),
-                                ],
-                              )
-                            ],
-                          ),
+                            )
+                          ],
                         ),
-                      ));
-                },
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 30,
+                width: double.infinity,
+                color: Colors.black,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.keyboard_arrow_up_rounded,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    _showSheet();
+                    // showModalBottomSheet(
+                    //   enableDrag: true,
+                    //     // shape: const RoundedRectangleBorder(
+                    //     //     borderRadius:
+                    //     //     BorderRadius.vertical(top: Radius.circular(25.0))
+                    //     // ),
+                    //     backgroundColor: Colors.black,
+                    //     context: context,
+                    //     isScrollControlled: true,
+                    //     builder: (context) => Padding(
+                    //       padding: EdgeInsets.only(top: 20,  right: 20,  left: 20,
+                    //           bottom: MediaQuery.of(context).viewInsets.bottom),
+                    //       child: Container(
+                    //         color: Colors.black,
+                    //         child: Column(
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           mainAxisSize: MainAxisSize.min,
+                    //           children: [
+                    //               Row(
+                    //                 children: [
+                    //                   Expanded(
+                    //                       flex:1,
+                    //                       child: buildModalBottomTextButton("INV")),
+                    //                   Expanded(
+                    //                       flex: 1,
+                    //                       child: buildModalBottomTextButton("RAD")),
+                    //                   Expanded(
+                    //                       flex: 1,
+                    //                       child: TextButton(
+                    //                           child: const Text(
+                    //                             "%",
+                    //                             style: TextStyle(
+                    //                                 fontSize: 20, color: Colors.white),
+                    //                           ),
+                    //                           onPressed: () {
+                    //                             setState(() {
+                    //                               option = "%";
+                    //                               if (userInput.contains("-") ||
+                    //                                   userInput.contains("+") ||
+                    //                                   userInput.contains("*") ||
+                    //                                   userInput.contains("/") ||
+                    //                                   userInput.contains("%") ||
+                    //                                   userInput.contains("sqrt(") ||
+                    //                                   userInput.contains("sin(") ||
+                    //                                   userInput.contains("cos(") ||
+                    //                                   userInput.contains("tan(") ||
+                    //                                   userInput.contains("log(") ||
+                    //                                   userInput.contains("ln(") ||
+                    //                                   userInput.contains("!(") ||
+                    //                                   userInput.contains("^")) {
+                    //
+                    //                                 if (second == 0) {
+                    //                                   // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                    //                                   // answer = answer + sum;
+                    //
+                    //                                   userInput = userInput + '%';
+                    //                                   index = userInput.length;
+                    //                                 } else {
+                    //                                   first = first * second/100;
+                    //                                   userInput = userInput + '%';
+                    //                                   index = userInput.length;
+                    //
+                    //                                   second = 0;
+                    //                                 }
+                    //                               } else {
+                    //                                 first = double.parse(userInput);
+                    //                                 // sum = int.parse(userInput);
+                    //                                 // answer = answer + sum;
+                    //
+                    //                                 userInput = userInput + '%';
+                    //                                 index = userInput.length;
+                    //                               }
+                    //                               if (second == 0) {
+                    //                                 answer = 0;
+                    //                               } else {
+                    //                                 answerDouble = first * second/100;
+                    //                               }
+                    //
+                    //                               second = 0;
+                    //
+                    //                             });
+                    //                           }),),
+                    //                   Expanded(
+                    //                       flex: 1,
+                    //                       child: TextButton(
+                    //                           child: const Text(
+                    //                             "sqrt",
+                    //                             style: TextStyle(
+                    //                                 fontSize: 20, color: Colors.white),
+                    //                           ),
+                    //                           onPressed: () {
+                    //                             setState(() {
+                    //                               option = "sqrt(";
+                    //                               // if(userInput=="0"){
+                    //                               //   userInput="sqrt(";
+                    //                               // }
+                    //                               if (userInput.contains("-") ||
+                    //                                   userInput.contains("+") ||
+                    //                                   userInput.contains("*") ||
+                    //                                   userInput.contains("/") ||
+                    //                                   userInput.contains("%") ||
+                    //                                   userInput.contains("sqrt(") ||
+                    //                                   userInput.contains("sin(") ||
+                    //                                   userInput.contains("cos(") ||
+                    //                                   userInput.contains("tan(") ||
+                    //                                   userInput.contains("log(") ||
+                    //                                   userInput.contains("ln(") ||
+                    //                                   userInput.contains("!(") ||
+                    //                                   userInput.contains("^")) {
+                    //
+                    //                                 index = userInput.length-1;
+                    //                                 if (second == 0) {
+                    //                                   // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                    //                                   // answer = answer + sum;
+                    //
+                    //                                   userInput =  'sqrt(' + userInput ;
+                    //                                   index = userInput.length-1;
+                    //                                 } else {
+                    //                                   first = sqrt(first);
+                    //                                   userInput =  'sqrt('+ userInput ;
+                    //                                   index = userInput.length;
+                    //
+                    //                                   second = 0;
+                    //                                 }
+                    //                               } else {
+                    //                                 first = double.parse(userInput);
+                    //                                 // sum = int.parse(userInput);
+                    //                                 // answer = answer + sum;
+                    //
+                    //                                 userInput = 'sqrt('+userInput  ;
+                    //                                 index = userInput.length-1;
+                    //                               }
+                    //                               if (second == 0) {
+                    //                                 answer = 0;
+                    //                               } else {
+                    //                                 answerDouble = sqrt(first);
+                    //                               }
+                    //
+                    //                               second = 0;
+                    //
+                    //                             });
+                    //                           }),),
+                    //                 ],
+                    //               ),
+                    //             Row(
+                    //               children: [
+                    //                 Expanded(
+                    //                     flex:1,
+                    //                     child: TextButton(
+                    //                         child: const Text(
+                    //                           "sin",
+                    //                           style: TextStyle(
+                    //                               fontSize: 20, color: Colors.white),
+                    //                         ),
+                    //                         onPressed: () {
+                    //                           setState(() {
+                    //                             option = "sin(";
+                    //                             // if(userInput=="0"){
+                    //                             //   userInput="sqrt(";
+                    //                             // }
+                    //                             if (userInput.contains("-") ||
+                    //                                 userInput.contains("+") ||
+                    //                                 userInput.contains("*") ||
+                    //                                 userInput.contains("/") ||
+                    //                                 userInput.contains("%") ||
+                    //                                 userInput.contains("sqrt(") ||
+                    //                                 userInput.contains("sin(") ||
+                    //                                 userInput.contains("cos(") ||
+                    //                                 userInput.contains("tan(") ||
+                    //                                 userInput.contains("log(") ||
+                    //                                 userInput.contains("ln(") ||
+                    //                                 userInput.contains("!(") ||
+                    //                                 userInput.contains("^")
+                    //                             ) {
+                    //
+                    //                               index = userInput.length-1;
+                    //                               if (second == 0) {
+                    //                                 // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                    //                                 // answer = answer + sum;
+                    //
+                    //                                 userInput =  'sin(' + userInput ;
+                    //                                 index = userInput.length-1;
+                    //                               } else {
+                    //                                 first = sin(first);
+                    //                                 userInput =  'sin('+ userInput ;
+                    //                                 index = userInput.length;
+                    //
+                    //                                 second = 0;
+                    //                               }
+                    //                             } else {
+                    //                               first = double.parse(userInput);
+                    //                               // sum = int.parse(userInput);
+                    //                               // answer = answer + sum;
+                    //
+                    //                               userInput = 'sin('+userInput  ;
+                    //                               index = userInput.length-1;
+                    //                             }
+                    //                             if (second == 0) {
+                    //                               answer = 0;
+                    //                             } else {
+                    //                               answerDouble = sin(first);
+                    //                             }
+                    //
+                    //                             second = 0;
+                    //
+                    //                           });
+                    //                         }),),
+                    //                 Expanded(
+                    //                     flex: 1,
+                    //                     child: TextButton(
+                    //                         child: const Text(
+                    //                           "cos",
+                    //                           style: TextStyle(
+                    //                               fontSize: 20, color: Colors.white),
+                    //                         ),
+                    //                         onPressed: () {
+                    //                           setState(() {
+                    //                             option = "cos(";
+                    //                             // if(userInput=="0"){
+                    //                             //   userInput="sqrt(";
+                    //                             // }
+                    //                             if (userInput.contains("-") ||
+                    //                                 userInput.contains("+") ||
+                    //                                 userInput.contains("*") ||
+                    //                                 userInput.contains("/") ||
+                    //                                 userInput.contains("%") ||
+                    //                                 userInput.contains("sqrt(") ||
+                    //                                 userInput.contains("sin(") ||
+                    //                                 userInput.contains("cos(") ||
+                    //                                 userInput.contains("tan(") ||
+                    //                                 userInput.contains("log(") ||
+                    //                                 userInput.contains("ln(") ||
+                    //                                 userInput.contains("!(") ||
+                    //                                 userInput.contains("^")
+                    //                             ) {
+                    //
+                    //                               index = userInput.length-1;
+                    //                               if (second == 0) {
+                    //                                 // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                    //                                 // answer = answer + sum;
+                    //
+                    //                                 userInput =  'cos(' + userInput ;
+                    //                                 index = userInput.length-1;
+                    //                               } else {
+                    //                                 first = cos(first);
+                    //                                 userInput =  'cos('+ userInput ;
+                    //                                 index = userInput.length;
+                    //
+                    //                                 second = 0;
+                    //                               }
+                    //                             } else {
+                    //                               first = double.parse(userInput);
+                    //                               // sum = int.parse(userInput);
+                    //                               // answer = answer + sum;
+                    //
+                    //                               userInput = 'cos('+userInput  ;
+                    //                               index = userInput.length-1;
+                    //                             }
+                    //                             if (second == 0) {
+                    //                               answer = 0;
+                    //                             } else {
+                    //                               answerDouble = cos(first);
+                    //                             }
+                    //
+                    //                             second = 0;
+                    //
+                    //                           });
+                    //                         }),),
+                    //                 Expanded(
+                    //                     flex: 1,
+                    //                     child: TextButton(
+                    //                         child: const Text(
+                    //                           "tan",
+                    //                           style: TextStyle(
+                    //                               fontSize: 20, color: Colors.white),
+                    //                         ),
+                    //                         onPressed: () {
+                    //                           setState(() {
+                    //                             option = "tan(";
+                    //                             // if(userInput=="0"){
+                    //                             //   userInput="sqrt(";
+                    //                             // }
+                    //                             if (userInput.contains("-") ||
+                    //                                 userInput.contains("+") ||
+                    //                                 userInput.contains("*") ||
+                    //                                 userInput.contains("/") ||
+                    //                                 userInput.contains("%") ||
+                    //                                 userInput.contains("sqrt(") ||
+                    //                                 userInput.contains("sin(") ||
+                    //                                 userInput.contains("cos(") ||
+                    //                                 userInput.contains("tan(") ||
+                    //                                 userInput.contains("log(") ||
+                    //                                 userInput.contains("ln(") ||
+                    //                                 userInput.contains("!(") ||
+                    //                                 userInput.contains("^")
+                    //                             ) {
+                    //
+                    //                               index = userInput.length-1;
+                    //                               if (second == 0) {
+                    //                                 // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                    //                                 // answer = answer + sum;
+                    //
+                    //                                 userInput =  'tan(' + userInput ;
+                    //                                 index = userInput.length-1;
+                    //                               } else {
+                    //                                 first = tan(first);
+                    //                                 userInput =  'tan('+ userInput ;
+                    //                                 index = userInput.length;
+                    //
+                    //                                 second = 0;
+                    //                               }
+                    //                             } else {
+                    //                               first = double.parse(userInput);
+                    //                               // sum = int.parse(userInput);
+                    //                               // answer = answer + sum;
+                    //
+                    //                               userInput = 'tan('+userInput  ;
+                    //                               index = userInput.length-1;
+                    //                             }
+                    //                             if (second == 0) {
+                    //                               answer = 0;
+                    //                             } else {
+                    //                               answerDouble = tan(first);
+                    //                             }
+                    //
+                    //                             second = 0;
+                    //
+                    //                           });
+                    //                         }),),
+                    //                 Expanded(
+                    //                     flex: 1,
+                    //                     child: TextButton(
+                    //                         child: const Text(
+                    //                           "ln",
+                    //                           style: TextStyle(
+                    //                               fontSize: 20, color: Colors.white),
+                    //                         ),
+                    //                         onPressed: () {
+                    //                           setState(() {
+                    //                             option = "ln(";
+                    //                             // if(userInput=="0"){
+                    //                             //   userInput="sqrt(";
+                    //                             // }
+                    //                             if (userInput.contains("-") ||
+                    //                                 userInput.contains("+") ||
+                    //                                 userInput.contains("*") ||
+                    //                                 userInput.contains("/") ||
+                    //                                 userInput.contains("%") ||
+                    //                                 userInput.contains("sqrt(") ||
+                    //                                 userInput.contains("sin(") ||
+                    //                                 userInput.contains("cos(") ||
+                    //                                 userInput.contains("tan(") ||
+                    //                                 userInput.contains("log(") ||
+                    //                                 userInput.contains("ln(") ||
+                    //                                 userInput.contains("!(") ||
+                    //                                 userInput.contains("^")
+                    //                             ) {
+                    //
+                    //                               index = userInput.length-1;
+                    //                               if (second == 0) {
+                    //                                 // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                    //                                 // answer = answer + sum;
+                    //
+                    //                                 userInput =  'ln(' + userInput ;
+                    //                                 index = userInput.length-1;
+                    //                               } else {
+                    //                                 first = logBase(first, eConst);
+                    //                                 userInput =  'ln('+ userInput ;
+                    //                                 index = userInput.length;
+                    //
+                    //                                 second = 0;
+                    //                               }
+                    //                             } else {
+                    //                               first = double.parse(userInput);
+                    //                               // sum = int.parse(userInput);
+                    //                               // answer = answer + sum;
+                    //
+                    //                               userInput = 'ln('+userInput  ;
+                    //                               index = userInput.length-1;
+                    //                             }
+                    //                             if (second == 0) {
+                    //                               answer = 0;
+                    //                             } else {
+                    //                               answerDouble = logBase(first, eConst);
+                    //                             }
+                    //
+                    //                             second = 0;
+                    //
+                    //                           });
+                    //                         }),),
+                    //               ],
+                    //             ),
+                    //             Row(
+                    //               children: [
+                    //                 Expanded(
+                    //                     flex:1,
+                    //                     child: TextButton(
+                    //                         child: const Text(
+                    //                           "log",
+                    //                           style: TextStyle(
+                    //                               fontSize: 20, color: Colors.white),
+                    //                         ),
+                    //                         onPressed: () {
+                    //                           setState(() {
+                    //                             option = "log(";
+                    //                             // if(userInput=="0"){
+                    //                             //   userInput="sqrt(";
+                    //                             // }
+                    //                             if (userInput.contains("-") ||
+                    //                                 userInput.contains("+") ||
+                    //                                 userInput.contains("*") ||
+                    //                                 userInput.contains("/") ||
+                    //                                 userInput.contains("%") ||
+                    //                                 userInput.contains("sqrt(") ||
+                    //                                 userInput.contains("sin(") ||
+                    //                                 userInput.contains("cos(") ||
+                    //                                 userInput.contains("tan(") ||
+                    //                                 userInput.contains("log(") ||
+                    //                                 userInput.contains("ln(") ||
+                    //                                 userInput.contains("!(") ||
+                    //                                 userInput.contains("^")
+                    //                             ) {
+                    //
+                    //                               index = userInput.length-1;
+                    //                               if (second == 0) {
+                    //                                 // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                    //                                 // answer = answer + sum;
+                    //
+                    //                                 userInput =  'log(' + userInput ;
+                    //                                 index = userInput.length-1;
+                    //                               } else {
+                    //                                 first = logBase(first, 10);
+                    //                                 userInput =  'log('+ userInput ;
+                    //                                 index = userInput.length;
+                    //
+                    //                                 second = 0;
+                    //                               }
+                    //                             } else {
+                    //                               first = double.parse(userInput);
+                    //                               // sum = int.parse(userInput);
+                    //                               // answer = answer + sum;
+                    //
+                    //                               userInput = 'log('+userInput  ;
+                    //                               index = userInput.length-1;
+                    //                             }
+                    //                             if (second == 0) {
+                    //                               answer = 0;
+                    //                             } else {
+                    //                               answerDouble = logBase(first, 10);
+                    //                             }
+                    //
+                    //                             second = 0;
+                    //
+                    //                           });
+                    //                         }),),
+                    //                 Expanded(
+                    //                     flex: 1,
+                    //                     child: TextButton(
+                    //                         child: const Text(
+                    //                           "!",
+                    //                           style: TextStyle(
+                    //                               fontSize: 20, color: Colors.white),
+                    //                         ),
+                    //                         onPressed: () {
+                    //                           setState(() {
+                    //                             option = "!(";
+                    //                             // if(userInput=="0"){
+                    //                             //   userInput="sqrt(";
+                    //                             // }
+                    //                             if (userInput.contains("-") ||
+                    //                                 userInput.contains("+") ||
+                    //                                 userInput.contains("*") ||
+                    //                                 userInput.contains("/") ||
+                    //                                 userInput.contains("%") ||
+                    //                                 userInput.contains("sqrt(") ||
+                    //                                 userInput.contains("sin(") ||
+                    //                                 userInput.contains("cos(") ||
+                    //                                 userInput.contains("tan(") ||
+                    //                                 userInput.contains("log(") ||
+                    //                                 userInput.contains("ln(") ||
+                    //                                 userInput.contains("!(") ||
+                    //                                 userInput.contains("^")
+                    //                             ) {
+                    //
+                    //                               index = userInput.length-1;
+                    //                               if (second == 0) {
+                    //                                 // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                    //                                 // answer = answer + sum;
+                    //
+                    //                                 userInput =  '!(' + userInput ;
+                    //                                 index = userInput.length-1;
+                    //                               } else {
+                    //                                 answerInt = factorial(first.toInt());
+                    //                                 first = answerInt.toDouble();
+                    //                                 // first = factorial(first.toInt());
+                    //                                 userInput =  '!('+ userInput ;
+                    //                                 index = userInput.length;
+                    //
+                    //                                 second = 0;
+                    //                               }
+                    //                             } else {
+                    //                               first = double.parse(userInput);
+                    //                               // sum = int.parse(userInput);
+                    //                               // answer = answer + sum;
+                    //
+                    //                               userInput = '!('+userInput  ;
+                    //                               index = userInput.length-1;
+                    //                             }
+                    //                             if (second == 0) {
+                    //                               answer = 0;
+                    //                             } else {
+                    //                               answerInt = factorial(first.toInt());
+                    //                               first = answerInt.toDouble();
+                    //                               // answer_double = factorial(first.toInt()) ;
+                    //                             }
+                    //
+                    //                             second = 0;
+                    //
+                    //                           });
+                    //                         }),),
+                    //                 Expanded(
+                    //                     flex: 1,
+                    //                     child: TextButton(
+                    //                         child: const Text(
+                    //                           "Pi",
+                    //                           style: TextStyle(
+                    //                               fontSize: 20,
+                    //                               color: Colors.white),
+                    //                         ),
+                    //                         onPressed: () {
+                    //                           setState(() {
+                    //                             if (userInput == '0') {
+                    //                               userInput = pi.toString();
+                    //                             } else if (!userInput.contains("+") &&
+                    //                                 !userInput.contains("-") &&
+                    //                                 !userInput.contains("*") &&
+                    //                                 !userInput.contains("/") &&
+                    //                                 !userInput.contains("%") &&
+                    //                                 !userInput.contains("sqrt(") &&
+                    //                                 !userInput.contains("sin(") &&
+                    //                                 !userInput.contains("cos(") &&
+                    //                                 !userInput.contains("tan(") &&
+                    //                                 !userInput.contains("log(") &&
+                    //                                 !userInput.contains("ln(") &&
+                    //                                 !userInput.contains("!(") &&
+                    //                                 !userInput.contains("^")) {
+                    //                               userInput = userInput + pi.toString();
+                    //                               // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                    //
+                    //                             } else {
+                    //                               userInput = userInput + pi.toString();
+                    //                               second = double.parse(userInput
+                    //                                   .substring(userInput.length -
+                    //                                   (userInput.length -
+                    //                                       index)));
+                    //
+                    //                             }
+                    //                           });
+                    //                         })),
+                    //                 Expanded(
+                    //                     flex: 1,
+                    //                     child: TextButton(
+                    //                         child: const Text(
+                    //                           "e",
+                    //                           style: TextStyle(
+                    //                               fontSize: 20,
+                    //                               color: Colors.white),
+                    //                         ),
+                    //                         onPressed: () {
+                    //                           setState(() {
+                    //                             if(userInput.contains("log(0")) {
+                    //                               userInput="log("+eConst.toString();
+                    //                               first = double.parse(userInput
+                    //                                   .substring(userInput.length -
+                    //                                   (userInput.length -
+                    //                                       index)));
+                    //                             }
+                    //                             // else if(userInput.contains("ln(0")) {
+                    //                             //   userInput="ln("+e_const.toString();
+                    //                             //   first = double.parse(userInput
+                    //                             //       .substring(userInput.length -
+                    //                             //       (userInput.length -
+                    //                             //           index)));
+                    //                             // }
+                    //                             if (userInput == '0') {
+                    //                               userInput = e.toString();
+                    //                             } else if (!userInput.contains("+") &&
+                    //                                 !userInput.contains("-") &&
+                    //                                 !userInput.contains("*") &&
+                    //                                 !userInput.contains("/") &&
+                    //                             !userInput.contains("%") &&
+                    //                             !userInput.contains("sqrt(") &&
+                    //                             !userInput.contains("sin(") &&
+                    //                             !userInput.contains("cos(") &&
+                    //                             !userInput.contains("tan(") &&
+                    //                             !userInput.contains("log(") &&
+                    //                             !userInput.contains("ln(") &&
+                    //                             !userInput.contains("!(") &&
+                    //                             !userInput.contains("^")
+                    //
+                    //                             ) {
+                    //                               userInput = userInput + e.toString();
+                    //                               // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                    //
+                    //                             } else {
+                    //                               userInput = userInput + e.toString();
+                    //                               second = double.parse(userInput
+                    //                                   .substring(userInput.length -
+                    //                                   (userInput.length -
+                    //                                       index)));
+                    //
+                    //                             }
+                    //                           });
+                    //                         })),
+                    //               ],
+                    //             ),
+                    //             Row(
+                    //               children: [
+                    //                 Expanded(
+                    //                     flex:1,
+                    //                     child: TextButton(
+                    //                         child: const Text(
+                    //                           "^",
+                    //                           style: TextStyle(
+                    //                               fontSize: 20, color: Colors.white),
+                    //                         ),
+                    //                         onPressed: () {
+                    //                           setState(() {
+                    //                             option = "^";
+                    //                             // if(userInput=="0"){
+                    //                             //   userInput="sqrt(";
+                    //                             // }
+                    //                             if (userInput.contains("-") ||
+                    //                                 userInput.contains("+") ||
+                    //                                 userInput.contains("*") ||
+                    //                                 userInput.contains("/") ||
+                    //                                 userInput.contains("%") ||
+                    //                                 userInput.contains("sqrt(") ||
+                    //                                 userInput.contains("sin(") ||
+                    //                                 userInput.contains("cos(") ||
+                    //                                 userInput.contains("tan(") ||
+                    //                                 userInput.contains("log(") ||
+                    //                                 userInput.contains("^")
+                    //                             ) {
+                    //
+                    //                               index = userInput.length;
+                    //                               if (second == 0) {
+                    //                                 // second =int.parse(userInput.substring(userInput.length-(userInput.length-index)));
+                    //                                 // answer = answer + sum;
+                    //
+                    //                                 userInput = userInput +'^';
+                    //                                 index = userInput.length;
+                    //                               } else {
+                    //                                 third = pow(first, second);
+                    //                                 first =third.toDouble();
+                    //                                 userInput =  userInput +'^';
+                    //                                 index = userInput.length;
+                    //
+                    //                                 second = 0;
+                    //                               }
+                    //                             } else {
+                    //                               first = double.parse(userInput);
+                    //                               // sum = int.parse(userInput);
+                    //                               // answer = answer + sum;
+                    //
+                    //                               userInput = userInput +'^' ;
+                    //                               index = userInput.length;
+                    //                             }
+                    //                             if (second == 0) {
+                    //                               answer = 0;
+                    //                             } else {
+                    //                               third = pow(first, second);
+                    //                               first =third.toDouble();
+                    //                             }
+                    //
+                    //                             second = 0;
+                    //
+                    //                           });
+                    //                         }),),
+                    //                 Expanded(
+                    //                     flex: 1,
+                    //                     child: buildModalBottomTextButton("(")),
+                    //                 Expanded(
+                    //                     flex: 1,
+                    //                     child: buildModalBottomTextButton(")")),
+                    //                 Expanded(
+                    //                     flex: 1,
+                    //                     child: buildModalBottomTextButton("v")),
+                    //               ],
+                    //             )
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ));
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
