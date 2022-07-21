@@ -815,7 +815,7 @@ class _CalculatorState extends State<Calculator> {
               Color(0xffe16b5c),
               Color(0xfff39060),
               Color(0xffffb56b),
-            ], // Gradient from https://learnui.design/tools/gradient-generator.html
+            ],
             tileMode: TileMode.mirror,
           ),
         ),
