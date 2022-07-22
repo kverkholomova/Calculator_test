@@ -1142,11 +1142,12 @@ class _CalculatorState extends State<Calculator> {
               Positioned(
                 top: moveInput?MediaQuery.of(context).size.height*0.285:MediaQuery.of(context).size.height*0.45,
                 left: MediaQuery.of(context).size.height*0.1,
-                height: moveInput?MediaQuery.of(context).size.height*0.38:MediaQuery.of(context).size.height*0.51,
-
+                height: moveInput?MediaQuery.of(context).size.height*0.45:MediaQuery.of(context).size.height*0.51,
+                width: moveInput
+                    ? MediaQuery.of(context).size.width * 0.85
+                    : MediaQuery.of(context).size.width * 0.85,
                 // bottom: 30,
                 child: Container(
-                  width: 250,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: const BorderRadius.only(
@@ -1156,7 +1157,7 @@ class _CalculatorState extends State<Calculator> {
                         bottomRight: Radius.circular(0)),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
+                        color: Colors.black.withOpacity(0.2),
                         spreadRadius: 5,
                         blurRadius: 7,
                         offset: const Offset(0, 3), // changes position of shadow
